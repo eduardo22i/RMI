@@ -11,12 +11,11 @@ package rmiproyecto;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import javax.swing.JFrame;
  
 public interface Mensaje extends Remote {
     void enviarMensaje(int id, String name, String message) throws RemoteException;
     String getX(int id) throws RemoteException;   
-    
+    ProxyMessage getMessage(int id) throws RemoteException;   ;
     
     public int registrarCB(MensajeCB mcb) throws RemoteException;;
     public void deRegistrarCB(MensajeCB mcb) throws RemoteException;;

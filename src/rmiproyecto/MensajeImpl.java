@@ -38,6 +38,8 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
                     ProxyMessage pm = new ProxyMessage(id, 0, null, ((MensajeCB)clienteLista.get(i)).getMensaje(name , message) ) ;
                     pm.id = v.size();
                     v.add(pm);
+                    System.out.println("o");
+                   ((MensajeCB) clienteLista.get(i)).getMensaje(name, message) ;
                 } catch (Exception e) {
                 }
                
@@ -72,7 +74,36 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         return text;
     }
     
+    
+    public ProxyMessage getMessage(int id) throws RemoteException {
+        ProxyMessage text = null;
+        System.out.println("ok!");
+        int todelete = 0;
+        for (int i = 0; i < v.size(); i++) {
+            try {
+                System.out.println("Message " + v.get(i).to + " - " + id);
+            //Add if
+            //if (v.get(i).to == id) {
+            //if (v.get(i).from != id) {
+                System.out.println("Obtuve mensaje" + v.size());
+                text = v.get(i);
+                todelete = i;
+            //}
+            //}
+            } catch (Exception e) {
+            }
+            
+        }
+        
+        if (v.size() > 0 ) {
+            //v.remove(todelete);
+        }
+        
+        return text;
+    }
+    
     public int registrarCB(MensajeCB mcb) {
+        
         clienteLista.add(mcb);        
         try {
             mcb.setId(clienteLista.size()-1);

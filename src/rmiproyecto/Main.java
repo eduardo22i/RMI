@@ -11,10 +11,23 @@ package rmiproyecto;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Main {
-     
+   
+    
+    
     private void startServer(){
-        try {
+        try {            
             // create on port 1099
             Registry registry = LocateRegistry.createRegistry(1099);
              
@@ -25,10 +38,15 @@ public class Main {
         }      
         System.out.println("El sistema esta listo");
     }
+    
+    
 
     public static void main(String[] args) {
         Main main = new Main();
         main.startServer();
+       
     }
+
+  
 
 }

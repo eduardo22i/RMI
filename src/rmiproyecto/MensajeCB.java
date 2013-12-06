@@ -17,5 +17,6 @@ public interface MensajeCB extends Remote {
     public int getID()  throws RemoteException;
     public String getName()  throws RemoteException;
     public void setName(String name)  throws RemoteException;
+    public void setFather(MainCliente mc) throws RemoteException;
 }
 

@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author eduardoirias
  */
-public class ProxyMessage {
+public class ProxyMessage implements java.io.Serializable {
     public int id;
     public int from;
     public int to;
@@ -30,5 +30,9 @@ public class ProxyMessage {
     
     public int getId() {
         return id;
+    }
+    
+    public String getMessage() {
+        return message;
     }
 }
