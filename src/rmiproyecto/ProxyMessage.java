@@ -11,17 +11,24 @@ import java.util.Date;
  * @author eduardoirias
  */
 public class ProxyMessage implements java.io.Serializable {
+    
     public int id;
-    public int from;
-    public int to;
+    
+    public ProxyClient from;
+    
+    public ProxyClient to;
+    
     public Date date;
+    
+    public String fromName;
+    
     public String message;
     
     public ProxyMessage () {
         
     }
     
-    public ProxyMessage (int f, int t, Date d, String m) {
+    public ProxyMessage (ProxyClient f, ProxyClient t, Date d, String m) {
         this.from = f;
         this.to = t;
         this.date = d;
@@ -31,6 +38,19 @@ public class ProxyMessage implements java.io.Serializable {
     public int getId() {
         return id;
     }
+    
+    public void setFrom(ProxyClient fn) {
+        from = fn;
+    }
+    
+    public void setFromName(String fn) {
+        fromName = fn;
+    }
+    
+    public String getFromName() {
+        return fromName;
+    }
+    
     
     public String getMessage() {
         return message;

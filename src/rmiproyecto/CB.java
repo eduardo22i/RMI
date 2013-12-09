@@ -17,14 +17,15 @@ public class CB extends UnicastRemoteObject implements MensajeCB {
     private int id;
     public String name;
     public MiVentanta cv = new MiVentanta();
+    public ProxyClient pc= null;
 
     public CB() throws RemoteException {
         super();
         cv.mCB = this;
         cv.setVisible(true);
     }
-    public String getMensaje(String name, String mensaje)  {
-        cv.getMensaje(name, mensaje);
+    public String getMensaje(String name, String mensaje, ProxyMessage pm)  {
+        cv.getMensaje(name, mensaje, pm);
         //System.out.println("\n"+ name + " dice: " + mensaje);
         //JOptionPane.showConfirmDialog(null, "\n"+ name + " dice: " + mensaje);
         return name + " dice: " + mensaje;
@@ -44,6 +45,14 @@ public class CB extends UnicastRemoteObject implements MensajeCB {
     
     public String getName() {
         return this.name;
+    }
+    
+    public ProxyClient getProxyClient() {
+        return this.pc;
+    }
+    public void setProxyClient(ProxyClient pc)  {
+        this.pc = pc;
+        
     }
     
     public void setFather(MainCliente mc) {

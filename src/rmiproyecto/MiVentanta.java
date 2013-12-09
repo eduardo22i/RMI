@@ -4,7 +4,13 @@
  */
 package rmiproyecto;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.io.IOException;
+import java.net.URL;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -31,6 +37,8 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
@@ -85,6 +93,11 @@ public class MiVentanta extends javax.swing.JFrame   {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        conversations = new javax.swing.JList();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
@@ -94,6 +107,8 @@ public class MiVentanta extends javax.swing.JFrame   {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jScrollPane2.setAutoscrolls(true);
 
@@ -110,46 +125,88 @@ public class MiVentanta extends javax.swing.JFrame   {
 
         jScrollPane1.setViewportView(jTextPane1);
 
+        conversations.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        conversations.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        conversations.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                conversationsMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(conversations);
+
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel4.setText("My name");
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rmiproyecto/user_default_photo.png"))); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel6.setText("jLabel6");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane3)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 93, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel5)))
+                .addGap(6, 6, 6))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(455, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(buttonSend)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(11, 11, 11)
-                            .addComponent(jLabel1)))
+                    .addContainerGap(715, Short.MAX_VALUE)
+                    .addComponent(buttonSend)
                     .addGap(20, 20, 20)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6))
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(423, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addContainerGap(485, Short.MAX_VALUE)
                     .addComponent(buttonSend)
                     .addContainerGap()))
         );
 
-        jPanel2.setBounds(0, 0, 550, 520);
+        jPanel2.setBounds(0, 0, 810, 520);
         jLayeredPane1.add(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jButton1.setText("Log in");
@@ -181,7 +238,7 @@ public class MiVentanta extends javax.swing.JFrame   {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(143, 143, 143)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -192,12 +249,12 @@ public class MiVentanta extends javax.swing.JFrame   {
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(209, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(178, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(169, 169, 169)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,10 +266,10 @@ public class MiVentanta extends javax.swing.JFrame   {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addGap(191, 191, 191))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
-        jPanel1.setBounds(0, 0, 550, 520);
+        jPanel1.setBounds(0, 0, 810, 520);
         jLayeredPane1.add(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -221,7 +278,7 @@ public class MiVentanta extends javax.swing.JFrame   {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 809, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -237,6 +294,7 @@ public class MiVentanta extends javax.swing.JFrame   {
     
     private void doTest(){
         try {
+             /*
             // fire to localhost port 1099
             Registry myRegistry = LocateRegistry.getRegistry("macbook-air-de-eduardo.local", 1099);
              
@@ -244,7 +302,7 @@ public class MiVentanta extends javax.swing.JFrame   {
             Scanner scn = new Scanner(System.in);
             String m = ""; 
             // search for myMessage service15
-             /*
+            
             impl = (Mensaje) myRegistry.lookup("miMensaje");
             mCB =  new CB();
             System.out.print("Su nombre: ");
@@ -262,12 +320,47 @@ public class MiVentanta extends javax.swing.JFrame   {
             }    
             * */
             
+            
+            
+            //Change Layer
             jPanel1.setVisible(false);
             jPanel2.setVisible(true);
             
             jList1.setAutoscrolls(true);
             jList1.setCellRenderer(new MyCellRenderer());
-                
+            
+            //User info
+            ProxyClient pc = impl.getClient(mCB.getName() );
+            
+            final ArrayList al = impl.getConversation(pc.id);
+            
+            conversations.setModel(new javax.swing.AbstractListModel() {
+
+                public int getSize() {
+                    return al.size();
+                }
+
+                public Object getElementAt(int i) {
+                    return al.get(i);
+                }
+            });
+            
+            this.Id = pc.id;
+            this.mCB.setId(Id);
+            jLabel4.setText(pc.name + " " + pc.lastName);
+            jLabel6.setText(pc.user);
+            
+            ImageIcon icon =  pc.icon;
+ 
+            //icon = new javax.swing.ImageIcon(getClass().getResource("http://macbook-air-de-eduardo.local:8888/RPSOL/images/psrsl-04.png"));
+            
+            Image image = icon.getImage();
+            Image newimg = image.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            icon = new ImageIcon(newimg); 
+            jLabel1.setIcon(icon);
+            
+            
+            
             Timer timer = new Timer();
             MessageLoop msl = new MessageLoop(this);
             //TODO
@@ -333,13 +426,45 @@ public class MiVentanta extends javax.swing.JFrame   {
     }//GEN-LAST:event_buttonSendActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
         
+        // fire to localhost port 1099
+       Registry myRegistry;
         try {
-            login();
-        } catch (Exception ex) {
+            myRegistry = LocateRegistry.getRegistry("macbook-air-de-eduardo.local", 1099);
+            Scanner scn = new Scanner(System.in);
+            String m = ""; 
+            // search for myMessage service15
+           try {
+               impl = (Mensaje) myRegistry.lookup("miMensaje");
+           } catch (NotBoundException ex) {
+               Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (AccessException ex) {
+               Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           
+            //mCB =  new CB();
+            System.out.print("Su nombre: ");
+            m = jTextField1.getText();
+            mCB.setName(m);
+        
+            
+        } catch (RemoteException ex) {
             Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
         }
+             
+            
+            
+        try {
+            if (impl.login( this.jTextField1.getText(), this.jTextField2.getText() ) ) {
+                this.doTest();
+            } else {
+                JOptionPane.showMessageDialog(this,  "Incorrect", "Incorrect", JOptionPane.DEFAULT_OPTION); ;
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -351,8 +476,18 @@ public class MiVentanta extends javax.swing.JFrame   {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void ReadMessages (String name, String mensaje) {
-        ProxyMessage text = new ProxyMessage(0,Id, null, mensaje);
+    private void conversationsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_conversationsMouseClicked
+        // TODO add your handling code here:
+
+        if (!conversations.getCellBounds(conversations.getSelectedIndex(), conversations.getSelectedIndex()).contains(evt.getPoint())) {
+            conversations.removeSelectionInterval(conversations.getSelectedIndex(), conversations.getSelectedIndex());
+        }
+        java.lang.System.out.println(conversations.getSelectedIndex());
+    }//GEN-LAST:event_conversationsMouseClicked
+
+    
+    public void ReadMessages (String name, String mensaje, ProxyMessage pm) {
+        ProxyMessage text = (ProxyMessage) pm;
         
         /*
         try {
@@ -406,83 +541,6 @@ public class MiVentanta extends javax.swing.JFrame   {
     
     
     
-    /**
-     * 
-     * @param DB 
-     */
-        public void login() throws Exception {
-        try {
-            // This will load the MySQL driver, each DB has its own driver
-            Class.forName("com.mysql.jdbc.Driver");
-            // Setup the connection with the DB
-            connect = DriverManager
-                    .getConnection("jdbc:mysql://localhost:8889/so2?"
-                    + "user=root&password=root");
-
-            System.out.println("CONECTADO!");
-
-            // Statements allow to issue SQL queries to the database
-            statement = connect.createStatement();
-            // Result set get the result of the SQL query
-            resultSet = statement.executeQuery("SELECT * FROM so2.usuario WHERE user = '" + this.jTextField1.getText()
-                    + "' AND password = '" + this.jTextField2.getText() +"'");
-            writeResultSet(resultSet);
-
-
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            close();
-        }
-
-    }
-
-    private void writeResultSet(ResultSet resultSet) throws SQLException {
-        // ResultSet is initially before the first data set
-        int count= 0;
-        while (resultSet.next()) {
-            // It is possible to get the columns via name
-            // also possible to get the columns via the column number
-            // which starts at 1
-            // e.g. resultSet.getSTring(2);
-            String id = resultSet.getString("id");
-            String nombre = resultSet.getString("nombre");
-
-            System.out.println("Id: " + id);
-            //this.Id = Integer.getInteger(id);
-            
-            System.out.println("Nombre: " + nombre);
-            try {
-                this.mCB.setName(nombre);
-            } catch (RemoteException ex) {
-                Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            doTest();
-            count++;
-        }
-        if (count == 0) {
-            System.out.println("ok");
-            JOptionPane.showMessageDialog(this,  "Incorrect", "Incorrect", JOptionPane.DEFAULT_OPTION); ;
-        }
-        
-    }
-
-    private void close() {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-
-            if (statement != null) {
-                statement.close();
-            }
-
-            if (connect != null) {
-                connect.close();
-            }
-        } catch (Exception e) {
-        }
-    }
 
     
     /**
@@ -490,10 +548,10 @@ public class MiVentanta extends javax.swing.JFrame   {
      * @param MensajeDB Implementation 
      */
     
-    public String getMensaje(String name, String mensaje)  {
+    public String getMensaje(String name, String mensaje, ProxyMessage pm)  {
         System.out.println("\n"+ name + " dice: " + mensaje);
         //JOptionPane.showConfirmDialog(this, "\n"+ name + " dice: " + mensaje);
-        ReadMessages ( name,  mensaje) ;
+        ReadMessages ( name,  mensaje, pm) ;
         return name + " dice: " + mensaje;
     }
     
@@ -545,17 +603,22 @@ public class MiVentanta extends javax.swing.JFrame   {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonSend;
+    private javax.swing.JList conversations;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextPane jTextPane1;

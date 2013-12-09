@@ -8,21 +8,40 @@ package rmiproyecto;
  *
  * @author Juan Leonardo
  */
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class MainCliente {
     
     public Mensaje impl ;
+    public MensajeCB mCB ;
     
     public void sendMessage (CB cb, String name, String message) {
         try {
-            System.out.println(cb.getID() + " - "+ name  + " - " + message);
-            impl.enviarMensaje(cb.getID(), name  , message);
+            System.out.println("Sender: "+cb.getID() + " - "+ name  + " - " + message);
+            
+                        
+            
+            ProxyClient pc = (ProxyClient) impl.getClient(name);
+            ProxyClient pc2 = (ProxyClient) impl.getClient("testone");
+            ProxyMessage pm = new ProxyMessage(pc , pc2, null, message);
+            
+            impl.enviarMensaje(cb.getID(), name  , message, pm);
+            
+
+            ProxyMessage pm2 = new ProxyMessage(pc2 , pc, null, message);
+            
+            impl.enviarMensaje(cb.getID(), name  , message, pm2);
         } catch (RemoteException ex) {
             Logger.getLogger(MainCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -39,20 +58,22 @@ public class MainCliente {
             // search for myMessage service15
 
             impl = (Mensaje) myRegistry.lookup("miMensaje");
-            MensajeCB mCB = new CB();
+            mCB = new CB();
             mCB.setFather(this);
             System.out.print("Su nombre: ");
-            m = "NOTIN";
+            m = "NO-Name";
             mCB.setName(m);
             // call server's method         
             
             impl.registrarCB(mCB);
-                
+            
+            /*
             while (true) {
                 System.out.print("Mensaje: ");
                 m = scn.nextLine();
                 impl.enviarMensaje(((CB)mCB).getID(), mCB.getName()  , m);
-            }                         
+            } 
+            */
         } catch (Exception e) {
             e.printStackTrace();
         }        

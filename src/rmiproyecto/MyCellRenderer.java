@@ -67,9 +67,9 @@ public class MyCellRenderer extends JPanel implements ListCellRenderer {
         // same font but bold
         Font newLabelFont = new Font(title.getFont().getName(), Font.BOLD, title.getFont().getSize());
         title.setFont(newLabelFont);
-        title.setText(messageinfo.from +" dice: ");
+        title.setText(messageinfo.from.name +" dice: ");
 
-
+        
         //this.get
         String s = value.toString();
         subtitle.setText(messageinfo.getMessage());
@@ -87,24 +87,20 @@ public class MyCellRenderer extends JPanel implements ListCellRenderer {
         this.add(subtitle);
         //this.setToolTipText("name");
 
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("/rmiproyecto/icons-10.png"));
-        } catch (IOException e) {
-        }
+        
 
         System.out.println("id: "+messageinfo.getId());
         ImageIcon icon;
-        if (messageinfo.getId() == 2) {
-            icon = (new javax.swing.ImageIcon(getClass().getResource("/rmiproyecto/icons-10.png")));
+        if (messageinfo.from.icon == null) {
+             icon = (new javax.swing.ImageIcon(getClass().getResource("/rmiproyecto/user_default_photo.png")));
         } else {
-            icon = (new javax.swing.ImageIcon(getClass().getResource("/rmiproyecto/user_default_photo.png")));
-        }
+            icon = messageinfo.from.icon ;
+        } 
 
         //this.add(img);
-Image image = icon.getImage(); // transform it 
-Image newimg = image.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-icon = new ImageIcon(newimg);  // transform it back
+        Image image = icon.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        icon = new ImageIcon(newimg);  // transform it back
 
         title.setIcon(icon);
         if (isSelected) {
