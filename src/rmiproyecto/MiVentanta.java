@@ -438,12 +438,15 @@ public class MiVentanta extends javax.swing.JFrame   {
             
             
             try {
-                conversationsArray.get(0).subscribers = impl.getClientsFromConversation( conversationsArray.get(0).id);
+                conversationsArray.get(0).subscribers = impl.getClientsFromConversation( conversationsArray.get(this.actualconv).id);
             } catch (RemoteException ex) {
                 Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            System.out.println("The user: " + ((ProxyClient) conversationsArray.get(0).subscribers.get(0)).user );
+            System.out.println("The user: " + ((ProxyClient) conversationsArray.get(this.actualconv).subscribers.get(0)).user );
+            
+            System.out.println(mCB.getID() + "_ id   --" + conversationsArray.get(this.actualconv).id);
+            impl.getMessages(mCB.getID(), conversationsArray.get(this.actualconv).id );
             
             this.Id = pc.id;
             this.mCB.setId(Id);
@@ -648,7 +651,7 @@ public class MiVentanta extends javax.swing.JFrame   {
     }//GEN-LAST:event_jButtonImageActionPerformed
 
     
-    public void ReadMessages (String name, String mensaje, ProxyMessage pm) {
+    public void ReadMessages (ProxyMessage pm) {
         ProxyMessage text = (ProxyMessage) pm;
         
         /*
@@ -710,11 +713,11 @@ public class MiVentanta extends javax.swing.JFrame   {
      * @param MensajeDB Implementation 
      */
     
-    public String getMensaje(String name, String mensaje, ProxyMessage pm)  {
-        System.out.println("\n"+ name + " dice: " + mensaje);
+    public String getMensaje(ProxyMessage pm)  {
+        System.out.println("\n"+ pm.from.name + " dice: " + pm.message);
         //JOptionPane.showConfirmDialog(this, "\n"+ name + " dice: " + mensaje);
-        ReadMessages ( name,  mensaje, pm) ;
-        return name + " dice: " + mensaje;
+        ReadMessages ( pm) ;
+        return pm.from.user + " dice: " + pm.message;
     }
     
     public void setId(int id) {

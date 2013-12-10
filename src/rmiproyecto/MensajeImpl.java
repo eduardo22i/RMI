@@ -50,7 +50,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         //TODO: save message in conversation
         
         
-        
+        int cont = 0;
         for (int i = 0; i < clienteLista.size(); i++) {
             //TODO
             try {
@@ -68,12 +68,13 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
 
                         pm.from = pc;
                         
-                        if (i == 0) {
+                        if (cont == 0) {
                             saveMessage(pm);
                         }
+                        cont++;
                         v.add(pm);
                         System.out.println("o");
-                        ((MensajeCB) clienteLista.get(i)).getMensaje(name, message, pm);
+                        ((MensajeCB) clienteLista.get(i)).getMensaje(pm);
 
 
                     }
@@ -191,8 +192,6 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
     }
     
      
-    
-    
     /**
      * 
      * @param Client 
@@ -265,6 +264,129 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
 
         return pc;
 
+
+    }
+    
+    
+     /**
+     * 
+     * @param Client 
+     */
+    //@SuppressWarnings("empty-statement")
+     public String getClientUser(int id) throws RemoteException {
+        String user = "";
+
+
+        try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+            connect = DriverManager
+                    .getConnection("jdbc:mysql://localhost:8889/so2?"
+                    + "user=root&password=root");
+
+
+            // Statements allow to issue SQL queries to the database
+            statement = connect.createStatement();
+            // Result set get the result of the SQL query
+            resultSet = statement.executeQuery("SELECT * FROM so2.usuario WHERE id = '" + id + "'");
+            
+            
+            while (resultSet.next()) {
+
+                user = resultSet.getString("user");
+               
+
+
+            }
+
+        } catch (Exception e) {
+            try {
+                throw e;
+            } catch (Exception ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            close();
+        }
+        
+        
+
+
+        return user;
+
+
+    }
+    
+     
+    /**
+     * 
+     * @param Client 
+     */
+    //@SuppressWarnings("empty-statement")
+     public void getMessages(int user, int conv ) throws RemoteException {
+        
+        ArrayList usuarios = new ArrayList();
+        ArrayList messages = new ArrayList();
+
+
+        try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+            connect = DriverManager
+                    .getConnection("jdbc:mysql://localhost:8889/so2?"
+                    + "user=root&password=root");
+
+
+            // Statements allow to issue SQL queries to the database
+            statement = connect.createStatement();
+            // Result set get the result of the SQL query
+            resultSet = statement.executeQuery("SELECT * FROM so2.mensajes WHERE idconversacion = " + conv + "");
+            
+            
+            while (resultSet.next()) {
+
+
+                ProxyMessage pm = new ProxyMessage();
+                
+                usuarios.add(resultSet.getString("idusuario"));
+                messages.add(resultSet.getString("message"));
+                
+                System.out.println("MENSAJE: " + resultSet.getString("message"));
+
+                
+
+
+            }
+
+        } catch (Exception e) {
+            try {
+                throw e;
+            } catch (Exception ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            close();
+        }
+        
+
+         for (int i = 0; i < messages.size(); i++) {
+             ProxyMessage pm = new ProxyMessage();
+             
+             String id = this.getClientUser(Integer.parseInt( usuarios.get(i).toString() ));
+             
+             pm.from = this.getClient(id);
+             pm.message = messages.get(i).toString();
+             
+             System.out.println("My messages: "+   messages.get(i).toString());
+             //if (((MensajeCB) clienteLista.get(i)).getID() == pms.to.id) {
+             //}
+             System.out.println("FROM:" + pm.from.name );
+             
+             ((MensajeCB) clienteLista.get(user)).getMensaje(pm);
+         }
+        
 
     }
     

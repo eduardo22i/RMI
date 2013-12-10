@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
  * @author Juan Leonardo
  */
 public interface MensajeCB extends Remote {
-    public String getMensaje(String name, String mensaje, ProxyMessage pm) throws RemoteException;
+    public String getMensaje(ProxyMessage pm) throws RemoteException;
     public void setId(int id)  throws RemoteException;
     public int getID()  throws RemoteException;
     public String getName()  throws RemoteException;

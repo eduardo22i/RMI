@@ -24,11 +24,11 @@ public class CB extends UnicastRemoteObject implements MensajeCB {
         cv.mCB = this;
         cv.setVisible(true);
     }
-    public String getMensaje(String name, String mensaje, ProxyMessage pm)  {
-        cv.getMensaje(name, mensaje, pm);
+    public String getMensaje(ProxyMessage pm)  {
+        cv.getMensaje(pm);
         //System.out.println("\n"+ name + " dice: " + mensaje);
         //JOptionPane.showConfirmDialog(null, "\n"+ name + " dice: " + mensaje);
-        return name + " dice: " + mensaje;
+        return pm.from.user + " dice: " + pm.message;
     }
     
     public void setId(int id) {
