@@ -404,7 +404,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
                     + "user=root&password=root");
 
             System.out.println("CONECTADO!");
-
+            
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
             // Result set get the result of the SQL query
@@ -450,6 +450,33 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         }
         
         return ans;
+    }
+    public void registrar(String name, String apellido, String email, String user, String password, String photo){
+        System.out.println("Comenzando");
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+            connect = DriverManager
+                    .getConnection("jdbc:mysql://localhost:8889/so2?"
+                    + "user=root&password=root");
+             System.out.println("Insertando");
+             System.out.println("Nombre: "+ name);
+             System.out.println("user: "+ user);
+            // Result set get the result of the SQL query
+            preparedStatement = connect.prepareStatement("INSERT INTO so2.usuario (nombre,apellido,correo,user,password,photo) VALUE ('"+name+"','"
+                    + apellido+"','"+email+"','"+user+"','"+password+"','"+photo+"')");
+            
+            preparedStatement.executeUpdate();
+            
+        }catch (Exception e) {
+            try {
+                throw e;
+            } catch (Exception ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            close();
+        }
     }
 
     private void close() {

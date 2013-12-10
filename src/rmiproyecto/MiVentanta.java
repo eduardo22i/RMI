@@ -230,6 +230,11 @@ public class MiVentanta extends javax.swing.JFrame   {
         JTextFieldUser1.setText("User");
 
         jButtonImage.setText("Image");
+        jButtonImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImageActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Sign Up");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -603,9 +608,44 @@ public class MiVentanta extends javax.swing.JFrame   {
     }//GEN-LAST:event_conversationsMouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        System.out.println("Hola");
+        Registry myRegistry;
+        try {
+            myRegistry = LocateRegistry.getRegistry("macbook-air-de-eduardo.local", 1099);
+            Scanner scn = new Scanner(System.in);
+            String m = ""; 
+            // search for myMessage service15
+           try {
+               impl = (Mensaje) myRegistry.lookup("miMensaje");
+           } catch (NotBoundException ex) {
+               Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (AccessException ex) {
+               Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           
+            //mCB =  new CB();
+            System.out.print("Su nombre: ");
+            m = "Usuarios sin registro";
+            mCB.setName(m);
         
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        try {
+            System.out.println(this.JTextFieldNombre.getText());
+            impl.registrar(this.JTextFieldNombre.getText(), this.JTextFieldApellido.getText(), this.JTextFieldCorreo.getText(), this.JTextFieldUser1.getText(), this.JTextFieldPassword.getText(),"http://macbook-air-de-eduardo.local:8888/RMI-Files/users/default.png");
+        } catch (RemoteException ex) {
+            Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jPanel1.setVisible(true);
+        jPanel3.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButtonImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonImageActionPerformed
 
     
     public void ReadMessages (String name, String mensaje, ProxyMessage pm) {

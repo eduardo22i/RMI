@@ -26,12 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `contactos`
 --
 
-CREATE TABLE `contactos` (
-  `idusuario1` int(11) NOT NULL,
-  `idusuario2` int(11) NOT NULL,
-  PRIMARY KEY (`idusuario1`,`idusuario2`),
-  KEY `usarioagreado_idx` (`idusuario2`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -139,9 +134,7 @@ INSERT INTO `usuarioperteneceaconversacion` (`idusuario`, `idconversacion`) VALU
 --
 -- Constraints for table `contactos`
 --
-ALTER TABLE `contactos`
-  ADD CONSTRAINT `usarioagreado` FOREIGN KEY (`idusuario2`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `usuarioqueagrega` FOREIGN KEY (`idusuario1`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
 
 --
 -- Constraints for table `mensaje`

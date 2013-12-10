@@ -19,7 +19,7 @@ public interface Mensaje extends Remote {
     ProxyMessage getMessage(int id) throws RemoteException;
     
     boolean login(String user, String password) throws RemoteException;
-    
+    public void registrar(String name, String apellido, String email, String user, String password, String photo) throws RemoteException;
     ProxyClient getClient(String user) throws RemoteException;
     
     ArrayList <ProxyConversation> getConversation(int userid) throws RemoteException;
