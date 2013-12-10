@@ -47,8 +47,10 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         * */
     }
     public void enviarMensaje(int id, String name, String message, ProxyMessage pms) throws RemoteException {
-        //TODO: means all
-
+        //TODO: save message in conversation
+        
+        
+        
         for (int i = 0; i < clienteLista.size(); i++) {
             //TODO
             try {
@@ -56,14 +58,19 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
                 if ((MensajeCB) clienteLista.get(i) != null) {
                     if (((MensajeCB) clienteLista.get(i)).getID() == pms.to.id) {
 
-
                         System.out.println("sender id: " + id);
                         ProxyMessage pm = (ProxyMessage) pms;
-
+                        
+                        System.out.println("id con: " + pms.conversation.id);
+                        
+                        
                         ProxyClient pc = this.getClient(name);
 
                         pm.from = pc;
-
+                        
+                        if (i == 0) {
+                            saveMessage(pm);
+                        }
                         v.add(pm);
                         System.out.println("o");
                         ((MensajeCB) clienteLista.get(i)).getMensaje(name, message, pm);
@@ -135,6 +142,56 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
     }
     
     /*MYSQL*/
+    
+    /**
+     * 
+     * @param Client 
+     */
+    //@SuppressWarnings("empty-statement")
+     public void  saveMessage(ProxyMessage pm) throws RemoteException {
+        ProxyClient pc = new ProxyClient();
+
+
+        try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+            connect = DriverManager
+                    .getConnection("jdbc:mysql://localhost:8889/so2?"
+                    + "user=root&password=root");
+
+
+            // Statements allow to issue SQL queries to the database
+            statement = connect.createStatement();
+            // Result set get the result of the SQL query
+            String query = "INSERT INTO so2.mensajes (idconversacion, idtipo, idusuario, fecha, message) VALUES (" + pm.conversation.id + "," + 1 + "," + pm.from.id + ", NOW(), '" + pm.message + "')";
+            
+            System.out.println(query);
+            preparedStatement = connect.prepareStatement(query);
+            
+
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            try {
+                throw e;
+            } catch (Exception ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            close();
+        }
+        
+        
+        System.out.println("The return of the jedi (client) " + pc.name);
+
+
+
+
+    }
+    
+     
+    
     
     /**
      * 

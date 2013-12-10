@@ -14,6 +14,8 @@ public class ProxyMessage implements java.io.Serializable {
     
     public int id;
     
+    public ProxyConversation  conversation;
+    
     public ProxyClient from;
     
     public ProxyClient to;

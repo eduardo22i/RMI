@@ -27,18 +27,21 @@ public class MainCliente {
     public Mensaje impl ;
     public MensajeCB mCB ;
     
-    public void sendMessage (CB cb, String name, String message, ArrayList<ProxyClient> personas) {
+    public void sendMessage (CB cb, String name, String message,ProxyConversation conv) {
         try {
             System.out.println("Sender: "+cb.getID() + " - "+ name  + " - " + message);
-             ProxyClient pc = (ProxyClient) impl.getClient(name);
-             
-            for (int i = 0; i < personas.size(); i++) {
+            ProxyClient pc = (ProxyClient) impl.getClient(name);
+            
+            
+            for (int i = 0; i < conv.subscribers.size(); i++) {
                 
-                ProxyClient pc2 = (ProxyClient) impl.getClient(personas.get(i).user);
+                ProxyClient pc2 = (ProxyClient) impl.getClient(conv.subscribers.get(i).user);
                 System.out.println("to " + pc2.user);
 
                 //TODO Date is null
                 ProxyMessage pm = new ProxyMessage(pc , pc2, null, message);
+                pm.conversation = conv;
+                
                 impl.enviarMensaje(cb.getID(), name  , message, pm);
                 //ProxyMessage pm2 = new ProxyMessage(pc2 , pc, null, message);
                 //impl.enviarMensaje(cb.getID(), name  , message, pm2);

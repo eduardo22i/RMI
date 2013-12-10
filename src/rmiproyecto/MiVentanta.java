@@ -509,7 +509,7 @@ public class MiVentanta extends javax.swing.JFrame   {
                 * */
             try {
                 
-                mc.sendMessage((CB) mCB, mCB.getName(), m,  conversationsArray.get(actualconv ).subscribers );
+                mc.sendMessage((CB) mCB, mCB.getName(), m,  conversationsArray.get(actualconv ) );
             } catch (RemoteException ex) {
                 Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
             }
