@@ -14,6 +14,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -26,22 +27,31 @@ public class MainCliente {
     public Mensaje impl ;
     public MensajeCB mCB ;
     
-    public void sendMessage (CB cb, String name, String message) {
+    public void sendMessage (CB cb, String name, String message, ArrayList<ProxyClient> personas) {
         try {
             System.out.println("Sender: "+cb.getID() + " - "+ name  + " - " + message);
-            
+             ProxyClient pc = (ProxyClient) impl.getClient(name);
+             
+            for (int i = 0; i < personas.size(); i++) {
+                
+                ProxyClient pc2 = (ProxyClient) impl.getClient(personas.get(i).user);
+                System.out.println("to " + pc2.user);
+
+                //TODO Date is null
+                ProxyMessage pm = new ProxyMessage(pc , pc2, null, message);
+                impl.enviarMensaje(cb.getID(), name  , message, pm);
+                //ProxyMessage pm2 = new ProxyMessage(pc2 , pc, null, message);
+                //impl.enviarMensaje(cb.getID(), name  , message, pm2);
+            }
                         
             
-            ProxyClient pc = (ProxyClient) impl.getClient(name);
-            ProxyClient pc2 = (ProxyClient) impl.getClient("testone");
-            ProxyMessage pm = new ProxyMessage(pc , pc2, null, message);
+           
             
-            impl.enviarMensaje(cb.getID(), name  , message, pm);
+            
+            
             
 
-            ProxyMessage pm2 = new ProxyMessage(pc2 , pc, null, message);
             
-            impl.enviarMensaje(cb.getID(), name  , message, pm2);
         } catch (RemoteException ex) {
             Logger.getLogger(MainCliente.class.getName()).log(Level.SEVERE, null, ex);
         }

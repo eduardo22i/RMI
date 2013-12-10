@@ -22,8 +22,9 @@ public interface Mensaje extends Remote {
     
     ProxyClient getClient(String user) throws RemoteException;
     
-    ArrayList getConversation(int userid) throws RemoteException;
-     
+    ArrayList <ProxyConversation> getConversation(int userid) throws RemoteException;
+    ArrayList <ProxyClient> getClientsFromConversation(int convid) throws RemoteException;
+    
     public int registrarCB(MensajeCB mcb) throws RemoteException;;
     public void deRegistrarCB(MensajeCB mcb) throws RemoteException;;
 }

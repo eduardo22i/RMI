@@ -68,7 +68,7 @@ public class MiVentanta extends javax.swing.JFrame   {
         initComponents();
         
         jPanel2.setVisible(false);
-        
+        jPanel3.setVisible(false);
         //MiVentanta main = new MiVentanta();
         //
         
@@ -98,6 +98,14 @@ public class MiVentanta extends javax.swing.JFrame   {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        JTextFieldNombre = new javax.swing.JTextField();
+        JTextFieldCorreo = new javax.swing.JTextField();
+        JTextFieldApellido = new javax.swing.JTextField();
+        JTextFieldPassword = new javax.swing.JTextField();
+        JTextFieldUser1 = new javax.swing.JTextField();
+        jButtonImage = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
@@ -208,6 +216,72 @@ public class MiVentanta extends javax.swing.JFrame   {
 
         jPanel2.setBounds(0, 0, 810, 520);
         jLayeredPane1.add(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        JTextFieldNombre.setText("Nombre");
+
+        JTextFieldCorreo.setText("Correo");
+
+        JTextFieldApellido.setText("Apellido");
+
+        JTextFieldPassword.setText("Password");
+
+        JTextFieldUser1.setText("User");
+
+        jButtonImage.setText("Image");
+
+        jButton3.setText("Sign Up");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton3)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(JTextFieldNombre)
+                            .addComponent(JTextFieldCorreo)
+                            .addComponent(jButtonImage, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                        .addGap(113, 113, 113)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(JTextFieldApellido)
+                            .addComponent(JTextFieldPassword)
+                            .addComponent(JTextFieldUser1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))))
+                .addContainerGap(228, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(JTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(JTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(JTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addComponent(JTextFieldUser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(52, 52, 52)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonImage))
+                .addGap(65, 65, 65)
+                .addComponent(jButton3)
+                .addContainerGap(160, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBounds(0, 0, 810, 530);
+        jLayeredPane1.add(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jButton1.setText("Log in");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -332,7 +406,18 @@ public class MiVentanta extends javax.swing.JFrame   {
             //User info
             ProxyClient pc = impl.getClient(mCB.getName() );
             
-            final ArrayList al = impl.getConversation(pc.id);
+            
+            
+            
+            conversationsArray = impl.getConversation(pc.id);
+            
+            
+            
+            final ArrayList al = new ArrayList();
+            
+            for (int i = 0; i < conversationsArray.size(); i++) {
+                al.add(conversationsArray.get(i).name);
+            }
             
             conversations.setModel(new javax.swing.AbstractListModel() {
 
@@ -344,6 +429,16 @@ public class MiVentanta extends javax.swing.JFrame   {
                     return al.get(i);
                 }
             });
+            
+            
+            
+            try {
+                conversationsArray.get(0).subscribers = impl.getClientsFromConversation( conversationsArray.get(0).id);
+            } catch (RemoteException ex) {
+                Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            System.out.println("The user: " + ((ProxyClient) conversationsArray.get(0).subscribers.get(0)).user );
             
             this.Id = pc.id;
             this.mCB.setId(Id);
@@ -414,7 +509,7 @@ public class MiVentanta extends javax.swing.JFrame   {
                 * */
             try {
                 
-                mc.sendMessage((CB) mCB, mCB.getName(), m);
+                mc.sendMessage((CB) mCB, mCB.getName(), m,  conversationsArray.get(actualconv ).subscribers );
             } catch (RemoteException ex) {
                 Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -473,7 +568,12 @@ public class MiVentanta extends javax.swing.JFrame   {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        //Change Layer
+            jPanel1.setVisible(false);
+            jPanel2.setVisible(false);
+            jPanel3.setVisible(true);
+            
+            
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void conversationsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_conversationsMouseClicked
@@ -482,8 +582,31 @@ public class MiVentanta extends javax.swing.JFrame   {
         if (!conversations.getCellBounds(conversations.getSelectedIndex(), conversations.getSelectedIndex()).contains(evt.getPoint())) {
             conversations.removeSelectionInterval(conversations.getSelectedIndex(), conversations.getSelectedIndex());
         }
-        java.lang.System.out.println(conversations.getSelectedIndex());
+        
+        
+        
+        if (conversations.getSelectedIndex() >= 0){
+            System.out.println("Selected: " + conversations.getSelectedIndex()  + " length:" + conversationsArray.size());
+            ProxyConversation pcnv =(ProxyConversation) conversationsArray.get(conversations.getSelectedIndex() );
+        
+            System.out.println("conv id: "+ pcnv.name );
+            
+            actualconv = conversations.getSelectedIndex() ;
+            try {
+                conversationsArray.get(conversations.getSelectedIndex() ).subscribers = impl.getClientsFromConversation(pcnv.id);
+            } catch (RemoteException ex) {
+                Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //System.out.println("Primero " +   conversationsArray.get(conversations.getSelectedIndex() ).subscribers.get(0).user);
+        }
     }//GEN-LAST:event_conversationsMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        //MARTIN AQUÍ VA TU CÓDIGO
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     
     public void ReadMessages (String name, String mensaje, ProxyMessage pm) {
@@ -602,10 +725,17 @@ public class MiVentanta extends javax.swing.JFrame   {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField JTextFieldApellido;
+    private javax.swing.JTextField JTextFieldCorreo;
+    private javax.swing.JTextField JTextFieldNombre;
+    private javax.swing.JTextField JTextFieldPassword;
+    private javax.swing.JTextField JTextFieldUser1;
     private javax.swing.JButton buttonSend;
     private javax.swing.JList conversations;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonImage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -616,6 +746,7 @@ public class MiVentanta extends javax.swing.JFrame   {
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -636,5 +767,8 @@ public class MiVentanta extends javax.swing.JFrame   {
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
+    
+    public ArrayList <ProxyConversation> conversationsArray = new ArrayList <ProxyConversation>();
+    int actualconv = 0;
     
 }

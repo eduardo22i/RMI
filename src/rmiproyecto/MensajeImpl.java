@@ -46,31 +46,39 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         v.add("Carlos Perez");
         * */
     }
-    public void enviarMensaje(int id, String name, String message,  ProxyMessage pms ) throws RemoteException {
+    public void enviarMensaje(int id, String name, String message, ProxyMessage pms) throws RemoteException {
         //TODO: means all
-        
-        for (int i=0; i<clienteLista.size(); i++) {          
+
+        for (int i = 0; i < clienteLista.size(); i++) {
             //TODO
-            //if (((MensajeCB)clienteLista.get(i)).getID() == pms.to.id || ((MensajeCB)clienteLista.get(i)).getID() == pms.from.id ) {
-                
-                try {
-                    System.out.println("sender id: " +  id);
-                    ProxyMessage pm = (ProxyMessage) pms ;
-                    
-                    ProxyClient pc = this.getClient(name);
-                 
-                    pm.from =  pc;
-                  
-                    v.add(pm);
-                    System.out.println("o");
-                   ((MensajeCB) clienteLista.get(i)).getMensaje(name, message, pm) ;
-                } catch (Exception e) {
+            try {
+
+                if ((MensajeCB) clienteLista.get(i) != null) {
+                    if (((MensajeCB) clienteLista.get(i)).getID() == pms.to.id) {
+
+
+                        System.out.println("sender id: " + id);
+                        ProxyMessage pm = (ProxyMessage) pms;
+
+                        ProxyClient pc = this.getClient(name);
+
+                        pm.from = pc;
+
+                        v.add(pm);
+                        System.out.println("o");
+                        ((MensajeCB) clienteLista.get(i)).getMensaje(name, message, pm);
+
+
+                    }
+                } else {
+                    clienteLista.remove(i);
+                    i--;
                 }
-               
-            //}
-                
+            } catch (Exception e) {
+            }
+
         }
-    }    
+    }   
     
     public String getX(int id) {
         String text = "";
@@ -210,9 +218,9 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
      * @param CONV 
      */
     //@SuppressWarnings("empty-statement")
-     public ArrayList getConversation(int userid) throws RemoteException {
-        ArrayList convs = new ArrayList();
-
+     public ArrayList <ProxyConversation> getConversation(int userid) throws RemoteException {
+        ArrayList  convs = new ArrayList();
+        
 
         try {
             // This will load the MySQL driver, each DB has its own driver
@@ -226,7 +234,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
             // Result set get the result of the SQL query
-            resultSet = statement.executeQuery("SELECT c.nombre "
+            resultSet = statement.executeQuery("SELECT c.id, c.nombre "
                     + "FROM so2.conversacion c "
                     + "JOIN so2.usuarioperteneceaconversacion upc "
                     + "ON c.id = upc.idconversacion "
@@ -234,8 +242,27 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             
             
             while (resultSet.next()) {
-                convs.add(resultSet.getString("nombre") + "");
+                
+                ProxyConversation pcnv = new ProxyConversation();
+                
+                pcnv.id = Integer.parseInt(resultSet.getString("id"));
+                pcnv.name = resultSet.getString("nombre") + "";
+                
+                System.out.println("Conv id: " + pcnv.id + " - name: " + pcnv.name);
+                
+                
+                
+                
+                
+                
+                
+                convs.add(pcnv);
+                
+                
             }
+            
+            
+            
 
         } catch (Exception e) {
             try {
@@ -248,13 +275,63 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         }
         
         
-
+        
 
         return convs;
 
 
     }
     
+     
+    public ArrayList <ProxyClient> getClientsFromConversation(int convid) throws RemoteException {
+        ArrayList  convs = new ArrayList();
+        
+        //user
+         Connection cnt = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+            cnt = DriverManager
+                    .getConnection("jdbc:mysql://localhost:8889/so2?"
+                    + "user=root&password=root");
+
+        
+        // Statements allow to issue SQL queries to the database
+            stmt = cnt.createStatement();
+            String query = "SELECT us.id, us.user, us.apellido "
+                    + "FROM so2.conversacion c "
+                    + "JOIN so2.usuarioperteneceaconversacion upc "
+                    + "ON c.id = upc.idconversacion "
+                    + "JOIN so2.usuario us "
+                    + "ON upc.idusuario = us.id "
+                    + "WHERE c.id = '" + convid + "'";
+            
+            System.out.println(query);
+            // Result set get the result of the SQL query
+            rs = stmt.executeQuery(query);
+         
+            
+            while (rs.next()) {
+                System.out.println("User: "+rs.getString("user") );
+                convs.add((ProxyClient)this.getClient(rs.getString("user") ));
+                
+            }
+        
+            } catch (Exception e) {
+            try {
+                throw e;
+            } catch (Exception ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            close();
+        }
+         return convs;
+    }
      /**
      * 
      * @param DB 
