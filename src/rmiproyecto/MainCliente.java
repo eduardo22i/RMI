@@ -63,7 +63,7 @@ public class MainCliente {
     private void doTest(){
         try {
             // fire to localhost port 1099
-            Registry myRegistry = LocateRegistry.getRegistry("192.168.1.120", 1099);
+            Registry myRegistry = LocateRegistry.getRegistry("macbook-air-de-eduardo.local", 1099);
              
             
             Scanner scn = new Scanner(System.in);

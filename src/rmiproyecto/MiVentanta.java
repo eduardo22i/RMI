@@ -536,7 +536,7 @@ public class MiVentanta extends javax.swing.JFrame   {
         // fire to localhost port 1099
        Registry myRegistry;
         try {
-            myRegistry = LocateRegistry.getRegistry("192.168.1.120", 1099);
+            myRegistry = LocateRegistry.getRegistry("macbook-air-de-eduardo.local", 1099);
             Scanner scn = new Scanner(System.in);
             String m = ""; 
             // search for myMessage service15
@@ -631,7 +631,7 @@ public class MiVentanta extends javax.swing.JFrame   {
         cliente.email=JTextFieldCorreo.getText();
         cliente.icon=newuser;
         try {
-            myRegistry = LocateRegistry.getRegistry("192.168.1.120", 1099);
+            myRegistry = LocateRegistry.getRegistry("macbook-air-de-eduardo.local", 1099);
             Scanner scn = new Scanner(System.in);
             String m = ""; 
             // search for myMessage service15
