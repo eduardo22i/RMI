@@ -7,6 +7,7 @@ package rmiproyecto;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import static java.awt.image.ImageObserver.WIDTH;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.AccessException;
@@ -39,7 +40,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 /**
@@ -533,7 +536,7 @@ public class MiVentanta extends javax.swing.JFrame   {
         // fire to localhost port 1099
        Registry myRegistry;
         try {
-            myRegistry = LocateRegistry.getRegistry("macbook-air-de-eduardo.local", 1099);
+            myRegistry = LocateRegistry.getRegistry("192.168.1.120", 1099);
             Scanner scn = new Scanner(System.in);
             String m = ""; 
             // search for myMessage service15
@@ -573,12 +576,20 @@ public class MiVentanta extends javax.swing.JFrame   {
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
+        
+
+        
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //Change Layer
             jPanel1.setVisible(false);
             jPanel2.setVisible(false);
+            JTextFieldNombre.setText("");
+            JTextFieldApellido.setText("");
+            JTextFieldCorreo.setText("");
+            JTextFieldPassword.setText("");
+            JTextFieldUser1.setText("");
             jPanel3.setVisible(true);
             
             
@@ -613,8 +624,14 @@ public class MiVentanta extends javax.swing.JFrame   {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         System.out.println("Hola");
         Registry myRegistry;
+        ProxyClient cliente = new ProxyClient();
+        cliente.name=JTextFieldNombre.getText();
+        cliente.lastName= JTextFieldApellido.getText();
+        cliente.user= JTextFieldUser1.getText();
+        cliente.email=JTextFieldCorreo.getText();
+        cliente.icon=newuser;
         try {
-            myRegistry = LocateRegistry.getRegistry("macbook-air-de-eduardo.local", 1099);
+            myRegistry = LocateRegistry.getRegistry("192.168.1.120", 1099);
             Scanner scn = new Scanner(System.in);
             String m = ""; 
             // search for myMessage service15
@@ -638,7 +655,8 @@ public class MiVentanta extends javax.swing.JFrame   {
         
         try {
             System.out.println(this.JTextFieldNombre.getText());
-            impl.registrar(this.JTextFieldNombre.getText(), this.JTextFieldApellido.getText(), this.JTextFieldCorreo.getText(), this.JTextFieldUser1.getText(), this.JTextFieldPassword.getText(),"http://macbook-air-de-eduardo.local:8888/RMI-Files/users/default.png");
+            
+            impl.registrar(cliente, JTextFieldPassword.getText());
         } catch (RemoteException ex) {
             Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -647,7 +665,31 @@ public class MiVentanta extends javax.swing.JFrame   {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImageActionPerformed
-        // TODO add your handling code here:
+        	JFileChooser chooser = new JFileChooser();
+    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "JPG & GIF Images", "jpg", "gif");
+    chooser.setFileFilter(filter);
+    int returnVal = chooser.showOpenDialog(this);
+    if(returnVal == JFileChooser.APPROVE_OPTION) {
+       System.out.println("You chose to open this file: " +
+            chooser.getSelectedFile().getAbsolutePath());
+            URL url;
+                BufferedImage img;
+                //try {
+                    //url = new URL(chooser.getSelectedFile().getPath() );
+
+                    //img = ImageIO.read(url);
+                    //newuser = new ImageIcon(img);
+                    newuser = new ImageIcon(chooser.getSelectedFile().getPath());
+                /*
+                } catch (IOException ex) {
+                    Logger.getLogger(MainCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                */ 
+       
+    }
+    
+        
     }//GEN-LAST:event_jButtonImageActionPerformed
 
     
@@ -812,5 +854,7 @@ public class MiVentanta extends javax.swing.JFrame   {
     
     public ArrayList <ProxyConversation> conversationsArray = new ArrayList <ProxyConversation>();
     int actualconv = 0;
+    
+    ImageIcon newuser;
     
 }

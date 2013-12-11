@@ -16,6 +16,7 @@ public class ProxyClient implements java.io.Serializable {
     public String name;
     public String lastName;
     public String user;
+    public String email;
     public ImageIcon icon;
     public String iconloc;
     

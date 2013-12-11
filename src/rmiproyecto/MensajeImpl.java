@@ -9,7 +9,10 @@ package rmiproyecto;
  * @author Juan Leonardo
  */
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -573,8 +576,27 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         
         return ans;
     }
-    public void registrar(String name, String apellido, String email, String user, String password, String photo){
+    public void registrar(ProxyClient cliente, String password){
         String id="";
+        
+        //BufferedImage image = (BufferedImage)((Image) cliente.icon.getImage());
+        Image source = cliente.icon.getImage();
+        int w = source.getWidth(null);
+        int h = source.getHeight(null);
+        BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = (Graphics2D)image.getGraphics();
+        g2d.drawImage(source, 0, 0, null);
+        g2d.dispose();
+        
+        //TODO: MACBOOK
+        String url = "/Users/Martin/Desktop/" + cliente.user+".jpg";
+        
+        try {
+            ImageIO.write(image, "png",new File(url));
+        } catch (IOException ex) {
+            Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         System.out.println("Comenzando");
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -583,11 +605,13 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
                     .getConnection("jdbc:mysql://localhost:8889/so2?"
                     + "user=root&password=root");
              System.out.println("Insertando");
-             System.out.println("Nombre: "+ name);
-             System.out.println("user: "+ user);
+             System.out.println("Nombre: "+ cliente.lastName);
+             System.out.println("user: "+ cliente.user);
+             String url2 = "/Users/Martin/Desktop/" + cliente.user+".jpg";
+
             // Result set get the result of the SQL query
-            preparedStatement = connect.prepareStatement("INSERT INTO so2.usuario (nombre,apellido,correo,user,password,photo) VALUE ('"+name+"','"
-                    + apellido+"','"+email+"','"+user+"','"+password+"','"+photo+"')");
+            preparedStatement = connect.prepareStatement("INSERT INTO so2.usuario (nombre,apellido,correo,user,password,photo) VALUE ('"+cliente.name+"','"
+                    + cliente.lastName+"','"+cliente.email+"','"+cliente.user+"','"+password+"','"+url2+"')");
             
             preparedStatement.executeUpdate();
             
@@ -613,7 +637,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
             // Result set get the result of the SQL query
-            resultSet = statement.executeQuery("SELECT * FROM so2.usuario WHERE user = '" + user+"'");
+            resultSet = statement.executeQuery("SELECT * FROM so2.usuario WHERE user = '" + cliente.user+"'");
             
             while (resultSet.next()) {
             // It is possible to get the columns via name
@@ -644,8 +668,8 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
                     .getConnection("jdbc:mysql://localhost:8889/so2?"
                     + "user=root&password=root");
              System.out.println("Insertando");
-             System.out.println("Nombre: "+ name);
-             System.out.println("user: "+ user);
+             System.out.println("Nombre: "+ cliente.name);
+             System.out.println("user: "+ cliente.user);
             // Result set get the result of the SQL query
             preparedStatement = connect.prepareStatement("INSERT INTO so2.usuarioperteneceaconversacion (idusuario,idconversacion) VALUE ('"+id+"','1')");
             
