@@ -206,6 +206,57 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         }
 
         
+        
+        public ArrayList<ProxyClient> getClientsFromConversation(int convid) throws RemoteException {
+            ArrayList convs = new ArrayList();
+
+            //user
+            Connection cnt = null;
+            Statement stmt = null;
+            ResultSet rs = null;
+
+            try {
+                // This will load the MySQL driver, each DB has its own driver
+                Class.forName("com.mysql.jdbc.Driver");
+                // Setup the connection with the DB
+                cnt = DriverManager
+                        .getConnection("jdbc:mysql://localhost:8889/so2?"
+                        + "user=root&password=root");
+
+
+                // Statements allow to issue SQL queries to the database
+                stmt = cnt.createStatement();
+                String query = "SELECT us.id, us.user, us.apellido "
+                        + "FROM so2.conversacion c "
+                        + "JOIN so2.usuarioperteneceaconversacion upc "
+                        + "ON c.id = upc.idconversacion "
+                        + "JOIN so2.usuario us "
+                        + "ON upc.idusuario = us.id "
+                        + "WHERE c.id = '" + convid + "'";
+
+                System.out.println(query);
+                // Result set get the result of the SQL query
+                rs = stmt.executeQuery(query);
+
+
+                while (rs.next()) {
+                    System.out.println("User: " + rs.getString("user"));
+                    convs.add((ProxyClient) mi.getClient(rs.getString("user")));
+
+                }
+
+            } catch (Exception e) {
+                try {
+                    throw e;
+                } catch (Exception ex) {
+                    Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } finally {
+                close();
+            }
+            return convs;
+        }
+        
     }
 
     
@@ -617,6 +668,12 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
     
      
     public ArrayList <ProxyClient> getClientsFromConversation(int convid) throws RemoteException {
+        
+        MessageLoop ml = new MessageLoop();
+        ml.mi = this;
+        return ml.getClientsFromConversation(convid);
+        
+        /*
         ArrayList  convs = new ArrayList();
         
         //user
@@ -664,6 +721,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             close();
         }
          return convs;
+         * */
     }
      /**
      * 
