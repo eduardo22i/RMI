@@ -121,10 +121,10 @@ public class MiVentanta extends javax.swing.JFrame   {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -263,8 +263,8 @@ public class MiVentanta extends javax.swing.JFrame   {
                 .addContainerGap())
         );
 
+        jLayeredPane1.add(jPanel2);
         jPanel2.setBounds(0, 0, 810, 520);
-        jLayeredPane1.add(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -366,8 +366,8 @@ public class MiVentanta extends javax.swing.JFrame   {
                 .addContainerGap(170, Short.MAX_VALUE))
         );
 
+        jLayeredPane1.add(jPanel3);
         jPanel3.setBounds(0, 0, 810, 530);
-        jLayeredPane1.add(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jButton1.setText("Log in");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -393,44 +393,45 @@ public class MiVentanta extends javax.swing.JFrame   {
             }
         });
 
+        jPasswordField1.setText("jPasswordField1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(143, 143, 143)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(123, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButton2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton1))
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3))
-                .addContainerGap(209, Short.MAX_VALUE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
+                .addGap(119, 119, 119))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(169, 169, 169)
+                .addGap(87, 87, 87)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
+        jLayeredPane1.add(jPanel1);
         jPanel1.setBounds(0, 0, 810, 520);
-        jLayeredPane1.add(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -641,7 +642,7 @@ public class MiVentanta extends javax.swing.JFrame   {
             
             
         try {
-            if (impl.login( this.jTextField1.getText(), this.jTextField2.getText() ) ) {
+            if (impl.login( this.jTextField1.getText(), this.jPasswordField1.getText() ) ) {
                 this.doTest();
             } else {
                 JOptionPane.showMessageDialog(this,  "Incorrect", "Incorrect", JOptionPane.DEFAULT_OPTION); ;
@@ -794,6 +795,7 @@ public class MiVentanta extends javax.swing.JFrame   {
     private void JButtonConversationsAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonConversationsAddActionPerformed
         // TODO add your handling code here:
         //TODO: LUIS AGREGAR CONVERSACIón
+        String convName = JOptionPane.showInputDialog(jPanel2,"Enter the name of your conversation","New Conversation",JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_JButtonConversationsAddActionPerformed
 
@@ -977,11 +979,11 @@ public class MiVentanta extends javax.swing.JFrame   {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
     ArrayList <ProxyMessage> stringssub = new ArrayList <ProxyMessage> () ;
