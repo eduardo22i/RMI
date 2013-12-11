@@ -61,7 +61,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
          public void run () {
              //this.
          }
-        public void start() {
+        public void login() {
             try {
                 // This will load the MySQL driver, each DB has its own driver
                 Class.forName("com.mysql.jdbc.Driver");
@@ -153,6 +153,59 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             System.out.println("end...");
 
         }
+        
+        
+        public void enviarMensajeThread(int id, String name, String message, ProxyMessage pms, int idf) throws RemoteException {
+            //TODO: save message in conversation
+
+
+            int cont = 0;
+            for (int i = 0; i < mi.clienteLista.size(); i++) {
+                //TODO
+                try {
+
+                    System.out.println("sender id: " + id + " to " + mi.getClient(name).id);
+
+                    if ((MensajeCB) mi.clienteLista.get(i) != null) {
+
+                        //if (((MensajeCB) clienteLista.get(j)).getID() == user) {
+                        ProxyClient pcb = mi.getClient(((MensajeCB) mi.clienteLista.get(i)).getName());
+                        if (pcb.id == pms.to.id || ((MensajeCB) mi.clienteLista.get(i)).getID() == mi.getClient(name).id) {
+
+                            ProxyMessage pm = (ProxyMessage) pms;
+
+                            System.out.println("id con: " + pms.conversation.id);
+
+
+                            ProxyClient pc = mi.getClient(name);
+
+                            pm.from = pc;
+
+
+
+                            v.add(pm);
+                            System.out.println("o " + idf);
+                            ((MensajeCB) mi.clienteLista.get(i)).getMensaje(pm);
+
+                            if (cont == 0 && idf == 0) {
+                                System.out.println("SAVE MESSAGE");
+                                mi.saveMessage(pm);
+                            }
+                            cont++;
+
+                        }
+                    } else {
+                        mi.clienteLista.remove(i);
+                        i--;
+                    }
+                } catch (Exception e) {
+                }
+
+            }
+            this.cancel();
+        }
+
+        
     }
 
     
@@ -168,7 +221,10 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
     public void enviarMensaje(int id, String name, String message, ProxyMessage pms, int idf) throws RemoteException {
         //TODO: save message in conversation
         
-        
+        MessageLoop ml = new MessageLoop();
+        ml.mi = this;
+        ml.enviarMensajeThread(id, name, message, pms, idf);
+        /*
         int cont = 0;
         for (int i = 0; i < clienteLista.size(); i++) {
             //TODO
@@ -194,7 +250,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
                         
                         
                         v.add(pm);
-                        System.out.println("o");
+                        System.out.println("o " + idf);
                         ((MensajeCB) clienteLista.get(i)).getMensaje(pm);
                         
                         if (cont == 0 && idf == 0) {
@@ -212,6 +268,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             }
 
         }
+        * */
     }   
     
     public String getX(int id) {
@@ -461,7 +518,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         ml.mi = this;
         ml.user = user;
         ml.conv = conv;
-        ml.start();
+        ml.login();
         //asdf
        /*
         
@@ -683,7 +740,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         g2d.dispose();
         
         //TODO: MACBOOK
-        String url = "/Users/Martin/Desktop/" + cliente.user+".jpg";
+        String url = "/Users/eduardoirias/Sites/RMI-Files/users/" + cliente.user+".png";
         
         try {
             ImageIO.write(image, "png",new File(url));
@@ -701,7 +758,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
              System.out.println("Insertando");
              System.out.println("Nombre: "+ cliente.lastName);
              System.out.println("user: "+ cliente.user);
-             String url2 = "/Users/Martin/Desktop/" + cliente.user+".jpg";
+             String url2 = "http://macbook-air-de-eduardo.local:8888/RMI-Files/users/" + cliente.user+".png";
 
             // Result set get the result of the SQL query
             preparedStatement = connect.prepareStatement("INSERT INTO so2.usuario (nombre,apellido,correo,user,password,photo) VALUE ('"+cliente.name+"','"

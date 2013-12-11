@@ -99,9 +99,11 @@ public class MiVentanta extends javax.swing.JFrame   {
         jScrollPane3 = new javax.swing.JScrollPane();
         conversations = new javax.swing.JList();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         JButtonConversationsAdd = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        JButtonConversationsAdd2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         JTextFieldNombre = new javax.swing.JTextField();
         JTextFieldCorreo = new javax.swing.JTextField();
@@ -153,8 +155,6 @@ public class MiVentanta extends javax.swing.JFrame   {
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel4.setText("My name");
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rmiproyecto/user_default_photo.png"))); // NOI18N
-
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("jLabel6");
@@ -163,6 +163,24 @@ public class MiVentanta extends javax.swing.JFrame   {
         JButtonConversationsAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JButtonConversationsAddActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 16)); // NOI18N
+        jLabel7.setText("Conv Nombre");
+
+        JButtonConversationsAdd2.setText("+");
+        JButtonConversationsAdd2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonConversationsAdd2ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rmiproyecto/photo icon.png"))); // NOI18N
+        jButton4.setPreferredSize(new java.awt.Dimension(52, 52));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -188,30 +206,41 @@ public class MiVentanta extends javax.swing.JFrame   {
                         .addComponent(JButtonConversationsAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(JButtonConversationsAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel5)))
-                .addGap(6, 6, 6))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(715, Short.MAX_VALUE)
-                    .addComponent(buttonSend)
-                    .addGap(20, 20, 20)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonSend))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(JButtonConversationsAdd2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonSend)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
@@ -224,14 +253,8 @@ public class MiVentanta extends javax.swing.JFrame   {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JButtonConversationsAdd)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(JButtonConversationsAdd)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(485, Short.MAX_VALUE)
-                    .addComponent(buttonSend)
-                    .addContainerGap()))
         );
 
         jPanel2.setBounds(0, 0, 810, 520);
@@ -458,7 +481,9 @@ public class MiVentanta extends javax.swing.JFrame   {
             
             
             try {
-                conversationsArray.get(0).subscribers = impl.getClientsFromConversation( conversationsArray.get(this.actualconv).id);
+                    conversationsArray.get(0).subscribers = impl.getClientsFromConversation( conversationsArray.get(this.actualconv).id); 
+                    jLabel7.setText( conversationsArray.get(0 ).name);
+
             } catch (RemoteException ex) {
                 Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -636,6 +661,7 @@ public class MiVentanta extends javax.swing.JFrame   {
                 
             try {
                 conversationsArray.get(conversations.getSelectedIndex() ).subscribers = impl.getClientsFromConversation(pcnv.id);
+                jLabel7.setText( conversationsArray.get(conversations.getSelectedIndex() ).name);
             } catch (RemoteException ex) {
                 Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -702,7 +728,7 @@ public class MiVentanta extends javax.swing.JFrame   {
     private void jButtonImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImageActionPerformed
         	JFileChooser chooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter(
-        "JPG & GIF Images", "jpg", "gif");
+        "JPG, PNG & GIF Images", "jpg", "png", "gif");
     chooser.setFileFilter(filter);
     int returnVal = chooser.showOpenDialog(this);
     if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -732,6 +758,16 @@ public class MiVentanta extends javax.swing.JFrame   {
         //TODO: LUIS AGREGAR CONVERSACIón
         
     }//GEN-LAST:event_JButtonConversationsAddActionPerformed
+
+    private void JButtonConversationsAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonConversationsAdd2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JButtonConversationsAdd2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        //TODO: make photo
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     
     public void ReadMessages (ProxyMessage pm) {
@@ -873,6 +909,7 @@ public class MiVentanta extends javax.swing.JFrame   {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonConversationsAdd;
+    private javax.swing.JButton JButtonConversationsAdd2;
     private javax.swing.JTextField JTextFieldApellido;
     private javax.swing.JTextField JTextFieldCorreo;
     private javax.swing.JTextField JTextFieldNombre;
@@ -883,13 +920,14 @@ public class MiVentanta extends javax.swing.JFrame   {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonImage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
