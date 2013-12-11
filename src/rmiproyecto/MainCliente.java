@@ -42,7 +42,8 @@ public class MainCliente {
                 ProxyMessage pm = new ProxyMessage(pc , pc2, null, message);
                 pm.conversation = conv;
                 
-                impl.enviarMensaje(cb.getID(), name  , message, pm);
+                impl.enviarMensaje(mCB.getID(), name  , message, pm, i);
+                
                 //ProxyMessage pm2 = new ProxyMessage(pc2 , pc, null, message);
                 //impl.enviarMensaje(cb.getID(), name  , message, pm2);
             }
