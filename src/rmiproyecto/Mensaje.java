@@ -27,6 +27,9 @@ public interface Mensaje extends Remote {
     
     void getMessages(int user, int conv ) throws RemoteException;
     
+    public boolean addUserToConv(String user, int conv) throws RemoteException;
+    public boolean createConv(int user, String conv) throws RemoteException;
+    
     public int registrarCB(MensajeCB mcb) throws RemoteException;;
     public void deRegistrarCB(MensajeCB mcb) throws RemoteException;;
 }

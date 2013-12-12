@@ -443,8 +443,8 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
     //@SuppressWarnings("empty-statement")
      public ProxyClient getClient(String user) throws RemoteException {
         ProxyClient pc = new ProxyClient();
-
-
+        
+        int cont = 0;
         try {
             // This will load the MySQL driver, each DB has its own driver
             Class.forName("com.mysql.jdbc.Driver");
@@ -458,7 +458,6 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             statement = connect.createStatement();
             // Result set get the result of the SQL query
             resultSet = statement.executeQuery("SELECT * FROM so2.usuario WHERE user = '" + user + "'");
-            
             
             while (resultSet.next()) {
 
@@ -488,9 +487,10 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             
                 //pc.id = id.intValue() + 0;
 
-
-
+                 cont++;
             }
+            
+            
 
         } catch (Exception e) {
             try {
@@ -502,6 +502,10 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             close();
         }
         
+        if (cont == 0) {
+            pc = null;
+            return pc;
+        }
         
         System.out.println("The return of the jedi (client) " + pc.name);
 
@@ -853,6 +857,177 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         
         return ans;
     }
+    
+     /**
+     * 
+     * @param DB 
+     */
+     public boolean addUserToConv(String user, int conv)  {
+         ProxyClient pc= null;
+         try {
+            pc= this.getClient(user);
+        } catch (RemoteException ex) {
+            //Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+         if (pc == null) {
+             return false;
+         }
+         
+        try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+            connect = DriverManager
+                    .getConnection("jdbc:mysql://localhost:8889/so2?"
+                    + "user=root&password=root");
+
+            System.out.println("CONECTADO!");
+            
+            // Statements allow to issue SQL queries to the database
+            statement = connect.createStatement();
+            // Result set get the result of the SQL query
+            String query = "INSERT INTO so2.usuarioperteneceaconversacion (idusuario, idconversacion) VALUES ('" + pc.id   + " ', '" + conv   + "')";
+            
+            System.out.println(query);
+            preparedStatement = connect.prepareStatement(query);
+            
+
+            preparedStatement.executeUpdate();
+            
+                    
+                  
+
+        } catch (Exception e) {
+            try {
+                throw e;
+            } catch (Exception ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            close();
+        }
+        return true;
+     }
+    
+    /**
+     * 
+     * @param DB 
+     */
+     public boolean createConv(int user, String conv)  {
+        try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+            connect = DriverManager
+                    .getConnection("jdbc:mysql://localhost:8889/so2?"
+                    + "user=root&password=root");
+
+            System.out.println("CONECTADO!");
+            
+            // Statements allow to issue SQL queries to the database
+            statement = connect.createStatement();
+            // Result set get the result of the SQL query
+            String query = "INSERT INTO so2.conversacion (nombre) VALUES ('" + conv   + "')";
+            
+            System.out.println(query);
+            preparedStatement = connect.prepareStatement(query);
+            
+
+            preparedStatement.executeUpdate();
+            
+                    
+                  
+
+        } catch (Exception e) {
+            try {
+                throw e;
+            } catch (Exception ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            close();
+        }
+        
+        //Sd toma el id de la conversación
+        
+        int idconv = -1;
+        
+        try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+            connect = DriverManager
+                    .getConnection("jdbc:mysql://localhost:8889/so2?"
+                    + "user=root&password=root");
+
+            System.out.println("CONECTADO!");
+            
+            // Statements allow to issue SQL queries to the database
+            statement = connect.createStatement();
+            // Result set get the result of the SQL query
+            resultSet = statement.executeQuery("SELECT * FROM so2.conversacion WHERE nombre = '" + conv +"'");
+            
+            while(resultSet.next()) {
+                idconv = resultSet.getInt("id");
+            }
+
+
+        } catch (Exception e) {
+            try {
+                throw e;
+            } catch (Exception ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            close();
+        }
+        
+        
+        //Se guarda el usuario en la conversación
+        
+        try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+            connect = DriverManager
+                    .getConnection("jdbc:mysql://localhost:8889/so2?"
+                    + "user=root&password=root");
+
+            System.out.println("CONECTADO!");
+            
+            // Statements allow to issue SQL queries to the database
+            statement = connect.createStatement();
+            // Result set get the result of the SQL query
+            String query = "INSERT INTO so2.usuarioperteneceaconversacion (idusuario, idconversacion) VALUES ('" + user   + "', '" + idconv   + "')";
+            
+            System.out.println(query);
+            preparedStatement = connect.prepareStatement(query);
+            
+
+            preparedStatement.executeUpdate();
+            
+                    
+                  
+
+        } catch (Exception e) {
+            try {
+                throw e;
+            } catch (Exception ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            close();
+        }
+        
+        
+        return true;
+
+    }
+    
+    
+    
     public void registrar(ProxyClient cliente, String password){
         String id="";
         

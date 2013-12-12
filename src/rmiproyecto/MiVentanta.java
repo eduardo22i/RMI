@@ -811,6 +811,17 @@ public class MiVentanta extends javax.swing.JFrame   {
         //TODO: LUIS AGREGAR CONVERSACIón
         String convName = JOptionPane.showInputDialog(jPanel2,"Enter the name of your conversation","New Conversation",JOptionPane.INFORMATION_MESSAGE);
         
+        try {
+            System.out.println("Usuario " + me.id + " en conv " + convName);
+            if(impl.createConv(me.id, convName)) {
+                //todo: agregar convs
+                this.actualconv = this.conversationsArray.size();
+                refreshConvs();
+                System.out.println("OK");
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_JButtonConversationsAddActionPerformed
 
     private void JButtonConversationsAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonConversationsAdd2ActionPerformed
@@ -820,6 +831,14 @@ public class MiVentanta extends javax.swing.JFrame   {
         "Input",
         JOptionPane.PLAIN_MESSAGE);
         System.out.println("Esto escribo: " + s);
+        try {
+            if (!impl.addUserToConv(s, this.conversationsArray.get(this.actualconv).id)) {
+            
+                JOptionPane.showMessageDialog(this, "No existe ese usuario");
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_JButtonConversationsAdd2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -906,7 +925,67 @@ public class MiVentanta extends javax.swing.JFrame   {
     
     
     
+    public void refreshConvs() {
+        try {
+            conversationsArray = impl.getConversation(me.id);
+        } catch (RemoteException ex) {
+            Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        ProxyConversation pcnv = (ProxyConversation) conversationsArray.get(actualconv);
+
+        System.out.println("conv id: " + pcnv.name);
+
+        try {
+            this.cleanConversation();
+
+
+
+            try {
+                conversationsArray.get(actualconv).subscribers = impl.getClientsFromConversation(pcnv.id);
+                jLabel7.setText(conversationsArray.get(actualconv).name);
+            } catch (RemoteException ex) {
+                Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //ProxyClient pc = impl.getClient(mCB.getName() );
+            //me =pc;    
+            impl.getMessages(me.id, conversationsArray.get(this.actualconv).id);
+
+        } catch (RemoteException ex) {
+            Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        final ArrayList al = new ArrayList();
+
+        for (int i = 0; i < conversationsArray.size(); i++) {
+            al.add(conversationsArray.get(i).name);
+        }
+
+        conversations.setModel(new javax.swing.AbstractListModel() {
+            public int getSize() {
+                return al.size();
+            }
+
+            public Object getElementAt(int i) {
+                return al.get(i);
+            }
+        });
+
+
+
+        try {
+            conversationsArray.get(this.actualconv).subscribers = impl.getClientsFromConversation(conversationsArray.get(this.actualconv).id);
+
+
+        } catch (RemoteException ex) {
+            Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
+    
+    
     
     /**
      * 
