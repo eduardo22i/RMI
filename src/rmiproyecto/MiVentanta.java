@@ -4,6 +4,7 @@
  */
 package rmiproyecto;
 
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import static java.awt.image.ImageObserver.WIDTH;
@@ -41,6 +42,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -104,6 +106,7 @@ public class MiVentanta extends javax.swing.JFrame   {
         jLabel7 = new javax.swing.JLabel();
         JButtonConversationsAdd2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
@@ -190,6 +193,20 @@ public class MiVentanta extends javax.swing.JFrame   {
             }
         });
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 34, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -204,7 +221,7 @@ public class MiVentanta extends javax.swing.JFrame   {
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -212,32 +229,35 @@ public class MiVentanta extends javax.swing.JFrame   {
                         .addComponent(JButtonConversationsAdd)
                         .addGap(22, 22, 22)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(JButtonConversationsAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(buttonSend, javax.swing.GroupLayout.PREFERRED_SIZE, 73, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(JButtonConversationsAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(JButtonConversationsAdd2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel7))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(393, 393, 393)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -256,7 +276,12 @@ public class MiVentanta extends javax.swing.JFrame   {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JButtonConversationsAdd)))
+                        .addComponent(JButtonConversationsAdd))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(JButtonConversationsAdd2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -472,6 +497,20 @@ public class MiVentanta extends javax.swing.JFrame   {
             }    
             * */
             
+            
+            this.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                    try {
+                        impl.deRegistrarCB(mCB, me.id);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    JOptionPane.showMessageDialog(null, "bye bye");
+                    System.exit(0);
+                }
+            });
+            
             this.messageType = 1;
             
             //Change Layer
@@ -485,6 +524,9 @@ public class MiVentanta extends javax.swing.JFrame   {
             ProxyClient pc = impl.getClient(mCB.getName() );
             me =pc;
             
+            
+            this.refreshConvs();
+            /*
             
             
             conversationsArray = impl.getConversation(pc.id);
@@ -517,6 +559,15 @@ public class MiVentanta extends javax.swing.JFrame   {
             } catch (RemoteException ex) {
                 Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            
+            
+            
+            */
+            
+            
+            
+            
             
             //System.out.println("The user: " + ((ProxyClient) conversationsArray.get(this.actualconv).subscribers.get(0)).user );
             
@@ -554,7 +605,7 @@ public class MiVentanta extends javax.swing.JFrame   {
     private void buttonSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSendActionPerformed
         // TODO add your handling code here:
         
-        if (!jTextPane1.getText().equals("")) {
+        if (!jTextPane1.getText().equals("") || this.messageType == 2) {
             /*
             final ProxyMessage[] strings1 = new ProxyMessage[jList1.getModel().getSize() + 1];
             for (int i = 0; i < jList1.getModel().getSize(); i++) {
@@ -619,7 +670,12 @@ public class MiVentanta extends javax.swing.JFrame   {
             
             //(CB cb, ProxyClient name, String message,ProxyConversation conv)
             String m = jTextPane1.getText();
-            mc.sendMessage((CB) mCB, me, this.messageType, m,  conversationsArray.get(actualconv ) );
+            
+            if (this.messageType == 1) {
+                mc.sendMessage((CB) mCB, me, this.messageType, m,  conversationsArray.get(actualconv ) );
+            } else {
+                mc.sendMessageImage((CB) mCB, me, this.messageType, this.newuser,  conversationsArray.get(actualconv ));
+            }
             jTextPane1.setText("");
             
             this.messageType = 1;
@@ -701,6 +757,9 @@ public class MiVentanta extends javax.swing.JFrame   {
         
         
         if (conversations.getSelectedIndex() >= 0 && conversations.getSelectedIndex() != actualconv){
+            actualconv = conversations.getSelectedIndex() ;
+            refreshConvs();
+            /*
             System.out.println("Selected: " + conversations.getSelectedIndex()  + " length:" + conversationsArray.size());
             ProxyConversation pcnv =(ProxyConversation) conversationsArray.get(conversations.getSelectedIndex() );
         
@@ -728,10 +787,11 @@ public class MiVentanta extends javax.swing.JFrame   {
             //me =pc;    
             impl.getMessages(me.id, conversationsArray.get(this.actualconv).id );
             
+            
             } catch (RemoteException ex) {
                 Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+            */
             //System.out.println("Primero " +   conversationsArray.get(conversations.getSelectedIndex() ).subscribers.get(0).user);
         }
     }//GEN-LAST:event_conversationsMouseClicked
@@ -801,8 +861,9 @@ public class MiVentanta extends javax.swing.JFrame   {
              Logger.getLogger(MainCliente.class.getName()).log(Level.SEVERE, null, ex);
              }
              */
-            this.messageType = 2;
-            System.out.println("Se cambio a 2");
+            //this.messageType = 2;
+            //jTextPane1.setText("Image");
+            //System.out.println("Se cambio a 2");
 
         }
 
@@ -812,35 +873,40 @@ public class MiVentanta extends javax.swing.JFrame   {
     private void JButtonConversationsAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonConversationsAddActionPerformed
         // TODO add your handling code here:
         //TODO: LUIS AGREGAR CONVERSACIón
-        String convName = JOptionPane.showInputDialog(jPanel2,"Enter the name of your conversation","New Conversation",JOptionPane.INFORMATION_MESSAGE);
-        
-        try {
-            System.out.println("Usuario " + me.id + " en conv " + convName);
-            if(impl.createConv(me.id, convName)) {
-                //todo: agregar convs
-                this.actualconv = this.conversationsArray.size();
-                refreshConvs();
-                System.out.println("OK");
+        String convName = JOptionPane.showInputDialog(jPanel2, "Enter the name of your conversation", "New Conversation", JOptionPane.INFORMATION_MESSAGE);
+
+        if (convName != null) {
+            try {
+                System.out.println("Usuario " + me.id + " en conv " + convName);
+                if (impl.createConv(me.id, convName)) {
+                    //todo: agregar convs
+                    this.actualconv = this.conversationsArray.size();
+                    refreshConvs();
+                    System.out.println("OK");
+                }
+            } catch (RemoteException ex) {
+                Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (RemoteException ex) {
-            Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
         }
+    
     }//GEN-LAST:event_JButtonConversationsAddActionPerformed
 
     private void JButtonConversationsAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonConversationsAdd2ActionPerformed
         // TODO add your handling code here:
-        String s = (String)JOptionPane.showInputDialog(null,
-        "Invitar a un Usuario a la Conversacion:\n",
-        "Input",
-        JOptionPane.PLAIN_MESSAGE);
-        System.out.println("Esto escribo: " + s);
-        try {
-            if (!impl.addUserToConv(s, this.conversationsArray.get(this.actualconv).id)) {
-            
-                JOptionPane.showMessageDialog(this, "No existe ese usuario");
+        String s = (String) JOptionPane.showInputDialog(null,
+                "Invitar a un Usuario a la Conversacion:\n",
+                "Input",
+                JOptionPane.PLAIN_MESSAGE);
+        if (s != null) {
+            System.out.println("Esto escribo: " + s);
+            try {
+                if (!impl.addUserToConv(s, this.conversationsArray.get(this.actualconv).id)) {
+
+                    JOptionPane.showMessageDialog(this, "No existe ese usuario");
+                }
+            } catch (RemoteException ex) {
+                Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (RemoteException ex) {
-            Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_JButtonConversationsAdd2ActionPerformed
 
@@ -861,7 +927,9 @@ public class MiVentanta extends javax.swing.JFrame   {
             newuser = new ImageIcon(chooser.getSelectedFile().getPath());
            
             this.messageType = 2;
-
+            jTextPane1.setText("Image");
+            System.out.println("Se cambio a 2");
+            
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -961,7 +1029,48 @@ public class MiVentanta extends javax.swing.JFrame   {
 
             try {
                 conversationsArray.get(actualconv).subscribers = impl.getClientsFromConversation(pcnv.id);
+                System.out.println("all the users: "+ conversationsArray.get(actualconv).subscribers.get(0).user);
+
                 jLabel7.setText(conversationsArray.get(actualconv).name);
+                
+                subs.clear();
+                jPanel4.removeAll();
+                
+                jPanel4.setLayout(new GridLayout(1,10));
+                int cont = 0;
+                
+                for (int i = conversationsArray.get(actualconv).subscribers.size(); i < 10; i++) {
+                    JLabel us = new JLabel(" ",JLabel.LEFT);
+                    us.setText("");
+                    jPanel4.add(us);
+                    
+                }
+                
+                System.out.println("LARGO " +conversationsArray.get(actualconv).subscribers.size() );
+                for (int i = 0; i < conversationsArray.get(actualconv).subscribers.size(); i++) {
+                    JLabel us = new JLabel(" ",JLabel.RIGHT);
+                    us.setText("");
+                    ImageIcon icon = conversationsArray.get(actualconv).subscribers.get(i).icon;
+                    
+                    Image image = icon.getImage(); // transform it 
+                    Image newimg = image.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+                    icon = new ImageIcon(newimg);  // transform it back
+
+                    
+                    us.setIcon(icon);
+                    subs.add(us);
+                    //jPanel4.setLayout(null);
+                    
+                    jPanel4.add(subs.get(i));
+                    cont++;
+                    
+                
+                
+                
+                }
+                
+                
+                
             } catch (RemoteException ex) {
                 Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -978,6 +1087,7 @@ public class MiVentanta extends javax.swing.JFrame   {
 
         for (int i = 0; i < conversationsArray.size(); i++) {
             al.add(conversationsArray.get(i).name);
+            
         }
 
         conversations.setModel(new javax.swing.AbstractListModel() {
@@ -990,7 +1100,7 @@ public class MiVentanta extends javax.swing.JFrame   {
             }
         });
 
-
+        /*
 
         try {
             conversationsArray.get(this.actualconv).subscribers = impl.getClientsFromConversation(conversationsArray.get(this.actualconv).id);
@@ -999,7 +1109,10 @@ public class MiVentanta extends javax.swing.JFrame   {
         } catch (RemoteException ex) {
             Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
     }
+    
+    
 
     
     
@@ -1011,7 +1124,7 @@ public class MiVentanta extends javax.swing.JFrame   {
      */
     
     public String getMensaje(ProxyMessage pm)  {
-        System.out.println("\n"+ pm.from.name + " dice: " + pm.message);
+        System.out.println("\n"+ pm.from.name + " dice: " + pm.message + " tipo" + pm.type );
         //JOptionPane.showConfirmDialog(this, "\n"+ name + " dice: " + mensaje);
         ReadMessages ( pm) ;
         return pm.from.user + " dice: " + pm.message;
@@ -1031,6 +1144,9 @@ public class MiVentanta extends javax.swing.JFrame   {
     public String getName() {
         return this.name;
     }
+    
+    
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1094,6 +1210,7 @@ public class MiVentanta extends javax.swing.JFrame   {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1123,4 +1240,5 @@ public class MiVentanta extends javax.swing.JFrame   {
     ImageIcon newuser;
     int messageType = 1;
     
+    public ArrayList <JLabel> subs = new ArrayList <JLabel>();
 }

@@ -5,6 +5,7 @@
 package rmiproyecto;
 
 import java.util.Date;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -25,6 +26,8 @@ public class ProxyMessage implements java.io.Serializable {
     public Date date;
     
     public String fromName;
+    
+    public ImageIcon icon;
     
     public String message;
     

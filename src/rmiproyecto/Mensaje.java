@@ -31,5 +31,5 @@ public interface Mensaje extends Remote {
     public boolean createConv(int user, String conv) throws RemoteException;
     
     public int registrarCB(MensajeCB mcb) throws RemoteException;;
-    public void deRegistrarCB(MensajeCB mcb) throws RemoteException;;
+    public void deRegistrarCB(MensajeCB mcb, int user)  throws RemoteException;;
 }

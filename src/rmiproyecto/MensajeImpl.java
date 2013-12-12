@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Random;
 import java.util.TimerTask;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -50,8 +51,8 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
     
     
   
-    private String[][] servers = { {"roblescoulter.local", "3306"},
-                                   {"macbook-pro-de-martin.local", "8889"},
+    private String[][] servers = { {"js-alienware.local", "3306"},
+                                   {"macbook-air-de-eduardo.local", "8889"},
                                    {"macbook-air-de-eduardo.local", "8889"}
                                  };
     private int servidorActual = 0;
@@ -300,62 +301,93 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
          ml.mi = this;
          ml.enviarMensajeThread(id, name, message, pms, idf);
          */
-        
-         
+
+
         int cont = 0;
-        
-        
-        
+
+
+
         for (int i = 0; i < clienteLista.size(); i++) {
             //TODO
-            
-           
-           MensajeCB mcbin = ((MensajeCB) clienteLista.get(i));
-                if (mcbin != null) {
-                    
-                    //if (((MensajeCB) clienteLista.get(j)).getID() == user) {
-                    System.out.println("THE USER IS " + mcbin.getName());
-                    ProxyClient pcb = this.getClient(mcbin.getName());
-                    
-                    if (pcb.id == pms.to.id || pcb.id == pms.from.id) {
-                        //ProxyMessage pm = (ProxyMessage) pms;
-                        System.out.println("id con: " + pms.from.name);
-                        //ProxyClient pc = this.getClient(name);
-                        //pm.from = pc;
-                        
-                        
-                   
-                        
-                        //v.add(pms);
-                        System.out.println("o " + idf);
-                        
-                        System.out.println(mcbin.getName());
-                        
-                        ((MensajeCB) clienteLista.get(mcbin.getID())).getMensaje(pms);
 
-                        if (cont == 0 && idf == 0) {
-                            System.out.println("SAVE MESSAGE");
-                            saveMessage(pms);
+
+            MensajeCB mcbin = ((MensajeCB) clienteLista.get(i));
+            if (mcbin != null) {
+
+                //if (((MensajeCB) clienteLista.get(j)).getID() == user) {
+                System.out.println("THE USER IS " + mcbin.getName());
+                ProxyClient pcb = this.getClient(mcbin.getName());
+
+                //if (pcb.id == pms.to.id || pcb.id == pms.from.id) {
+                if (pcb.id == pms.to.id ) {
+                    //ProxyMessage pm = (ProxyMessage) pms;
+                    System.out.println("id con: " + pms.to.name);
+                    //ProxyClient pc = this.getClient(name);
+                    //pm.from = pc;
+
+
+
+
+                    //v.add(pms);
+                    System.out.println("o " + idf);
+
+                    System.out.println(mcbin.getName());
+
+
+                    if (pms.type == 2) {
+                        Random rand = new Random();
+                        int randomNum = rand.nextInt((1000 - 1) + 1) + 1;
+                        Image source = pms.icon.getImage();
+                        int w = source.getWidth(null);
+                        int h = source.getHeight(null);
+                        BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+                        Graphics2D g2d = (Graphics2D) image.getGraphics();
+                        g2d.drawImage(source, 0, 0, null);
+                        g2d.dispose();
+
+                        //TODO: MACBOOK
+                        String url = "/Users/eduardoirias/Sites/RMI-Files/photos/" + pms.from.user + randomNum + ".png";
+
+                        try {
+                            ImageIO.write(image, "png", new File(url));
+                        } catch (IOException ex) {
+                            Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        
-                        cont++;
 
+                        System.out.println("Comenzando");
+
+                        String url2 = "http://macbook-air-de-eduardo.local:8888/RMI-Files/photos/" + pms.from.user + randomNum + ".png";
+                        pms.message = url2;
                     }
-                    
-                } 
-                /*
-                 * else {
-                    clienteLista.remove(i);
-                    i--;
+
+
+
+
+                    ((MensajeCB) clienteLista.get(mcbin.getID())).getMensaje(pms);
+
+                    if (cont == 0 && idf == 0) {
+                        System.out.println("SAVE MESSAGE");
+                        saveMessage(pms);
+                    }
+
+                    cont++;
+
                 }
-                * 
-                * */ 
-            
-        
+
+            }
+            /*
+             * else {
+             clienteLista.remove(i);
+             i--;
+             }
+             * 
+             * */
+
+
 
         }
-        
-    }  
+
+    }
     
     public String getX(int id) {
         String text = "";
@@ -609,6 +641,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
          
          ArrayList usuarios = new ArrayList();
          ArrayList messages = new ArrayList();
+         ArrayList types = new ArrayList();
          ArrayList <Date> fechas = new ArrayList<Date>();
          DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         /*   
@@ -643,14 +676,16 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
                 
                 usuarios.add(resultSet.getString("idusuario"));
                 messages.add(resultSet.getString("message"));
-
+                types.add(resultSet.getString("idtipo"));
+                
                 String str_date = resultSet.getString("fecha");
                 System.out.println(str_date);
                 DateFormat formatter;
                 Date date;
                 formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 date = formatter.parse(str_date);
-
+                
+                
                 fechas.add(date);
                 System.out.println("MENSAJE: " + resultSet.getString("message"));
 
@@ -690,6 +725,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
                 
                 usuarios.add(resultSet.getString("idusuario"));
                 messages.add(resultSet.getString("message"));
+                types.add(resultSet.getString("idtipo"));
                 
                 String str_date = resultSet.getString("fecha");
                 System.out.println(str_date);
@@ -721,18 +757,10 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
          int userinarray = 0;
          //TODO Sacar usuario no conectado
          for (int i = 0; i < clienteLista.size(); i++) {
-             System.out.println("HOLA soy nulo");
-             if((MensajeCB)clienteLista.get(i) == null) {
-                 System.out.println("Hola segundo nulo");
-                 clienteLista.remove(i);
-             }
-             System.out.println("indice:"+i+ " nombre:"+ ((MensajeCB) clienteLista.get(i)).getName() );
-             if (((MensajeCB) clienteLista.get(i)).getName() != null ) {
-                 if (this.getClient(((MensajeCB) clienteLista.get(i)).getName()).id == user ) {
+             if (this.getClient(((MensajeCB) clienteLista.get(i)).getName()).id == user ) {
                     System.out.println("user is = " + i);
                     userinarray = i;
                 }
-             }    
          }
          
          ArrayList <ProxyMessage> proxMens = new ArrayList<ProxyMessage>();
@@ -745,7 +773,23 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
              String id = this.getClientUser(Integer.parseInt( usuarios.get(i).toString() ));
              
              pm.from = this.getClient(id);
-             pm.message = messages.get(i).toString();     
+             pm.message = messages.get(i).toString();
+             pm.type = Integer.parseInt(types.get(i).toString());
+             
+             if (pm.type == 2) {
+                 URL url;
+                BufferedImage img;
+                try {
+                    url = new URL(pm.message );
+
+                    img = ImageIO.read(url);
+                    pm.icon = new ImageIcon(img);
+
+                } catch (IOException ex) {
+                    Logger.getLogger(MainCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+             }
+            
              pm.date = (Date) fechas.get(i);
              
              System.out.println("My messages: "+   messages.get(i).toString());
@@ -1143,6 +1187,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         g2d.dispose();
         
         //TODO: MACBOOK
+        
         String url = "/Users/eduardoirias/Sites/RMI-Files/users/" + cliente.user+".png";
         
         try {
@@ -1268,6 +1313,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         
         try {
             mcb.setId(clienteLista.size()-1);
+            //mcb.setName("new");
         } catch (RemoteException ex) {
             Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1279,7 +1325,33 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         }
         return id;
     }
-    public void deRegistrarCB(MensajeCB mcb) {
+    public void deRegistrarCB(MensajeCB mcb, int user) {
+        int userinarray = 0;
+        for (int i = 0; i < clienteLista.size(); i++) {
+            
+            try {
+                if (this.getClient( ((MensajeCB) clienteLista.get(i)).getName() ).id == user ) {
+                   System.out.println("user is = " + i);
+                   userinarray = i;
+                   i = clienteLista.size(); 
+               }
+            } catch (RemoteException ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+              
+             
+         }
+        
+        
         clienteLista.removeElement(mcb);
+        
+        for (int i = 0; i < clienteLista.size(); i++) {
+            try {
+                ((MensajeCB)clienteLista.get(i)).setId(i);
+            } catch (RemoteException ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
     }
 }

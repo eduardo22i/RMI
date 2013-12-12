@@ -68,19 +68,18 @@ public class MyCellRenderer extends JPanel implements ListCellRenderer {
         Font newLabelFont = new Font(title.getFont().getName(), Font.BOLD, title.getFont().getSize());
         title.setFont(newLabelFont);
         title.setText(messageinfo.from.name +" dice: ");
-
         
         //this.get
-        String s = value.toString();
-        subtitle.setText(messageinfo.getMessage());
-
+        
+        //String s = value.toString();
+        
         title.setBounds(0, 0, 400, 60);
         //subtitle.setBounds(title.getBounds().x, title.getBounds().y + 50, 1000, 80);
 
         //painel3.add(title);
 
         
-        sender.setText("R");
+        sender.setText("R" + messageinfo.type );
                 
         this.add(title);
         this.add(sender);
@@ -89,7 +88,7 @@ public class MyCellRenderer extends JPanel implements ListCellRenderer {
 
         
 
-        System.out.println("id: "+messageinfo.getId());
+        //System.out.println("id: "+messageinfo.getId());
         ImageIcon icon;
         if (messageinfo.from.icon == null) {
              icon = (new javax.swing.ImageIcon(getClass().getResource("/rmiproyecto/user_default_photo.png")));
@@ -103,6 +102,24 @@ public class MyCellRenderer extends JPanel implements ListCellRenderer {
         icon = new ImageIcon(newimg);  // transform it back
 
         title.setIcon(icon);
+        
+        ImageIcon photo = null;
+        if (messageinfo.type == 1) {
+            subtitle.setText(messageinfo.getMessage());
+            subtitle.setIcon(null);
+        } else  if (messageinfo.type == 2) {
+            subtitle.setText("");
+            photo = messageinfo.icon ;
+            
+            Image image2 = photo.getImage(); // transform it 
+            Image newimg2 = image2.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            photo = new ImageIcon(newimg2);  // 
+        
+            subtitle.setIcon(photo);
+        }
+        
+       
+        
         if (isSelected) {
             setBackground(list.getSelectionBackground());
             setForeground(list.getSelectionForeground());

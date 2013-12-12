@@ -23,6 +23,7 @@ public class CB extends UnicastRemoteObject implements MensajeCB {
         super();
         cv.mCB = this;
         cv.setVisible(true);
+        cv.setDefaultCloseOperation(1);
     }
     
     public void getLastMensaje(ProxyMessage pm) throws RemoteException {
@@ -31,6 +32,14 @@ public class CB extends UnicastRemoteObject implements MensajeCB {
     }
     public String getMensaje(ProxyMessage pm)  {
         System.out.println(pm.from.user + " dice: " + pm.message); 
+        pm.message = pm.message.replaceAll(":\\)", "☺");
+        pm.message = pm.message.replaceAll(":\\(", "☹");
+        pm.message = pm.message.replaceAll("\\(\\*\\)", "★");
+        pm.message = pm.message.replaceAll("\\(f\\)", "☃");
+        pm.message = pm.message.replaceAll("\\(r\\)", "⚅");
+        pm.message = pm.message.replaceAll("\\(c\\)", "☕");
+        
+        
         cv.getMensaje(pm);
         //System.out.println("\n"+ name + " dice: " + mensaje);
         //JOptionPane.showConfirmDialog(null, "\n"+ name + " dice: " + mensaje);

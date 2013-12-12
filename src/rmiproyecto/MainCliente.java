@@ -63,6 +63,46 @@ public class MainCliente {
    
     }
     
+    
+    
+    public void sendMessageImage (CB cb, ProxyClient name, int messageType,  ImageIcon icon,ProxyConversation conv) {
+            ProxyClient pc = name;
+            
+            //conv.subscribers.remove();
+            for (int i = 0; i < conv.subscribers.size(); i++) {
+                System.out.println("USER: " + conv.subscribers.get(i).id +  conv.subscribers.get(i).user);
+            }
+            for (int i = 0; i < conv.subscribers.size(); i++) {
+                System.out.println("SUBS " + conv.subscribers.get(i).id );
+                
+                //ProxyClient pc2 = (ProxyClient) impl.getClient(conv.subscribers.get(i).user);
+                ProxyClient pc2 = conv.subscribers.get(i);
+                System.out.println("to " + pc2.user);
+
+                
+                //TODO Date is null
+                ProxyMessage pm = new ProxyMessage();
+                pm.from = pc;
+                pm.to = pc2;
+                pm.icon = icon;
+                pm.conversation = conv;
+                pm.type = messageType;
+                try {                
+                
+                    //impl.enviarMensaje(mCB.getID(), name.name  , message, pm, i);
+                    impl.enviarMensaje(pm, i);
+                    
+                    //ProxyMessage pm2 = new ProxyMessage(pc2 , pc, null, message);
+                    //impl.enviarMensaje(cb.getID(), name  , message, pm2);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(MainCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+                        
+   
+    }
+    
     private void doTest(){
         try {
             // fire to localhost port 1099
