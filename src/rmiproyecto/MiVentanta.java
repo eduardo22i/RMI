@@ -817,6 +817,11 @@ public class MiVentanta extends javax.swing.JFrame   {
 
     private void JButtonConversationsAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonConversationsAdd2ActionPerformed
         // TODO add your handling code here:
+        String s = (String)JOptionPane.showInputDialog(null,
+        "Invitar a un Usuario a la Conversacion:\n",
+        "Input",
+        JOptionPane.PLAIN_MESSAGE);
+        System.out.println("Esto escribo: " + s);
     }//GEN-LAST:event_JButtonConversationsAdd2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
