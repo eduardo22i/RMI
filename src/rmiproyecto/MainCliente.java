@@ -27,7 +27,7 @@ public class MainCliente {
     public Mensaje impl ;
     public MensajeCB mCB ;
     
-    public void sendMessage (CB cb, ProxyClient name, String message,ProxyConversation conv) {
+    public void sendMessage (CB cb, ProxyClient name, int messageType,  String message,ProxyConversation conv) {
             System.out.println("Sender: "+cb.getID() + " - "+ name.user  + " - " + message);
             ProxyClient pc = name;
             
@@ -46,6 +46,7 @@ public class MainCliente {
                 //TODO Date is null
                 ProxyMessage pm = new ProxyMessage(pc , pc2, null, message);
                 pm.conversation = conv;
+                pm.type = messageType;
                 try {                
                 
                     //impl.enviarMensaje(mCB.getID(), name.name  , message, pm, i);

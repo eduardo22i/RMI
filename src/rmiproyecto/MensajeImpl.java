@@ -23,7 +23,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.TimerTask;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -43,6 +49,23 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
     private ResultSet resultSet = null;
     
     
+  
+    private String[][] servers = { {"roblescoulter.local", "3306"},
+                                   {"macbook-pro-de-martin.local", "8889"},
+                                   {"macbook-air-de-eduardo.local", "8889"}
+                                 };
+    private int servidorActual = 0;
+    int cont = 0;
+    
+    public class CustomComparator implements Comparator<ProxyMessage> {
+        
+
+        @Override
+        public int compare(ProxyMessage o1, ProxyMessage o2) {
+            return o1.date.compareTo(o2.date);
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+    }
     private  class MessageLoop extends TimerTask {
         private Connection connect = null;
         private Statement statement = null;
@@ -74,7 +97,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
                 // Statements allow to issue SQL queries to the database
                 statement = connect.createStatement();
                 // Result set get the result of the SQL query
-                resultSet = statement.executeQuery("SELECT * FROM so2.mensajes WHERE idconversacion = " + conv + "");
+                resultSet = statement.executeQuery("SELECT * FROM so2.mensaje WHERE idconversacion = " + conv + "");
 
 
 
@@ -401,15 +424,16 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             // This will load the MySQL driver, each DB has its own driver
             Class.forName("com.mysql.jdbc.Driver");
             // Setup the connection with the DB
-            connect = DriverManager
-                    .getConnection("jdbc:mysql://localhost:8889/so2?"
+            //IPS
+            
+            connect = DriverManager.getConnection("jdbc:mysql://"+this.servers[servidorActual][0]+":" + this.servers[servidorActual][1] +"/so2?"
                     + "user=root&password=root");
 
 
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
             // Result set get the result of the SQL query
-            String query = "INSERT INTO so2.mensajes (idconversacion, idtipo, idusuario, fecha, message) VALUES (" + pm.conversation.id + "," + 1 + "," + pm.from.id + ", NOW(), '" + pm.message + "')";
+            String query = "INSERT INTO so2.mensaje (idconversacion, idtipo, idusuario, fecha, message) VALUES (" + pm.conversation.id + "," + pm.type + "," + pm.from.id + ", NOW(), '" + pm.message + "')";
             
             System.out.println(query);
             preparedStatement = connect.prepareStatement(query);
@@ -429,7 +453,15 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         
         
         System.out.println("Save the jedi (client) " + pm.to.name);
-
+        
+        cont++;
+        if (cont%2 == 0) {
+            if (servidorActual == 1) {
+                servidorActual = 0;
+            } else {
+                servidorActual++;
+            }
+        }
 
 
 
@@ -577,6 +609,8 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
          
          ArrayList usuarios = new ArrayList();
          ArrayList messages = new ArrayList();
+         ArrayList <Date> fechas = new ArrayList<Date>();
+         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         /*   
         MessageLoop ml = new MessageLoop();
        
@@ -593,25 +627,31 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             // This will load the MySQL driver, each DB has its own driver
             Class.forName("com.mysql.jdbc.Driver");
             // Setup the connection with the DB
-            connect = DriverManager
-                    .getConnection("jdbc:mysql://localhost:8889/so2?"
+           
+            connect = DriverManager.getConnection("jdbc:mysql://"+this.servers[0][0] +":" + this.servers[0][1] +"/so2?"
                     + "user=root&password=root");
 
+            
 
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
             // Result set get the result of the SQL query
-            resultSet = statement.executeQuery("SELECT * FROM so2.mensajes WHERE idconversacion = " + conv + "");
+            resultSet = statement.executeQuery("SELECT * FROM so2.mensaje WHERE idconversacion = " + conv + "");
             
             
             while (resultSet.next()) {
-
-
-                ProxyMessage pm = new ProxyMessage();
                 
                 usuarios.add(resultSet.getString("idusuario"));
                 messages.add(resultSet.getString("message"));
-                
+
+                String str_date = resultSet.getString("fecha");
+                System.out.println(str_date);
+                DateFormat formatter;
+                Date date;
+                formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                date = formatter.parse(str_date);
+
+                fechas.add(date);
                 System.out.println("MENSAJE: " + resultSet.getString("message"));
 
                 
@@ -629,9 +669,57 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
             close();
         }
         
+          try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+           
+            connect = DriverManager.getConnection("jdbc:mysql://"+this.servers[1][0] +":" + this.servers[1][1] +"/so2?"
+                    + "user=root&password=root");
+
+            
+
+            // Statements allow to issue SQL queries to the database
+            statement = connect.createStatement();
+            // Result set get the result of the SQL query
+            resultSet = statement.executeQuery("SELECT * FROM so2.mensaje WHERE idconversacion = " + conv + "");
+            
+            
+            while (resultSet.next()) {
+
+                
+                usuarios.add(resultSet.getString("idusuario"));
+                messages.add(resultSet.getString("message"));
+                
+                String str_date = resultSet.getString("fecha");
+                System.out.println(str_date);
+                DateFormat formatter;
+                Date date;
+                formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                date = formatter.parse(str_date);
+
+                fechas.add(date);
+                
+                System.out.println("MENSAJE: " + resultSet.getString("message"));
+
+                
+
+
+            }
+
+        } catch (Exception e) {
+            try {
+                throw e;
+            } catch (Exception ex) {
+                Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            close();
+        }
          
          System.out.println("clienteLista: "+ clienteLista.size());
          int userinarray = 0;
+         //TODO Sacar usuario no conectado
          for (int i = 0; i < clienteLista.size(); i++) {
              System.out.println("HOLA soy nulo");
              if((MensajeCB)clienteLista.get(i) == null) {
@@ -647,6 +735,9 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
              }    
          }
          
+         ArrayList <ProxyMessage> proxMens = new ArrayList<ProxyMessage>();
+         
+         
          System.out.println("Messages size: " +messages.size());
          for (int i = 0; i < messages.size(); i++) {
              ProxyMessage pm = new ProxyMessage();
@@ -654,16 +745,27 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
              String id = this.getClientUser(Integer.parseInt( usuarios.get(i).toString() ));
              
              pm.from = this.getClient(id);
-             pm.message = messages.get(i).toString();
+             pm.message = messages.get(i).toString();     
+             pm.date = (Date) fechas.get(i);
              
              System.out.println("My messages: "+   messages.get(i).toString());
              //if (((MensajeCB) clienteLista.get(i)).getID() == pms.to.id) {
              //}
              System.out.println("FROM:" + pm.from.name );
              
-             ((MensajeCB) clienteLista.get(userinarray)).getMensaje(pm);
+             proxMens.add(pm);
+             
          }
-          
+         
+         Collections.sort(proxMens, new CustomComparator());
+         
+         for (int i = 0; i < proxMens.size(); i++) {
+             System.out.println("enviado" + proxMens.get(i).date);
+             ((MensajeCB) clienteLista.get(userinarray)).getMensaje(proxMens.get(i));
+             
+         }
+         
+         
         
 
     }

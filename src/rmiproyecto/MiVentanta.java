@@ -104,6 +104,13 @@ public class MiVentanta extends javax.swing.JFrame   {
         jLabel7 = new javax.swing.JLabel();
         JButtonConversationsAdd2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
         JTextFieldNombre = new javax.swing.JTextField();
         JTextFieldCorreo = new javax.swing.JTextField();
@@ -118,13 +125,6 @@ public class MiVentanta extends javax.swing.JFrame   {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jPasswordField2 = new javax.swing.JPasswordField();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -222,7 +222,7 @@ public class MiVentanta extends javax.swing.JFrame   {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(buttonSend, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                            .addComponent(buttonSend, javax.swing.GroupLayout.PREFERRED_SIZE, 73, Short.MAX_VALUE)
                             .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -263,104 +263,7 @@ public class MiVentanta extends javax.swing.JFrame   {
         jLayeredPane1.add(jPanel2);
         jPanel2.setBounds(0, 0, 810, 520);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        JTextFieldNombre.setText("Name");
-
-        JTextFieldCorreo.setText("Email");
-
-        JTextFieldApellido.setText("Last Name");
-
-        JTextFieldUser1.setText("Username");
-
-        jButtonImage.setText("Image");
-        jButtonImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonImageActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Sign Up");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Name:");
-
-        jLabel8.setText("Last Name:");
-
-        jLabel9.setText("Email:");
-
-        jLabel10.setText("Username:");
-
-        jLabel11.setText("Password:");
-
-        jLabel12.setText("Select an image:");
-
-        jPasswordField2.setText("jPasswordField2");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel12)
-                    .addComponent(JTextFieldCorreo)
-                    .addComponent(JTextFieldNombre)
-                    .addComponent(jButtonImage, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(JTextFieldUser1)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-                    .addComponent(JTextFieldApellido))
-                .addGap(86, 86, 86))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonImage)
-                            .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JTextFieldUser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel11)))
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-
-        jLayeredPane1.add(jPanel3);
-        jPanel3.setBounds(0, 0, 810, 530);
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton1.setText("Log in");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -397,7 +300,7 @@ public class MiVentanta extends javax.swing.JFrame   {
                     .addComponent(jLabel3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -418,11 +321,108 @@ public class MiVentanta extends javax.swing.JFrame   {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addContainerGap(290, Short.MAX_VALUE))
         );
 
         jLayeredPane1.add(jPanel1);
         jPanel1.setBounds(0, 0, 810, 520);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        JTextFieldNombre.setText("Name");
+
+        JTextFieldCorreo.setText("Email");
+
+        JTextFieldApellido.setText("Last Name");
+
+        JTextFieldUser1.setText("Username");
+
+        jButtonImage.setText("Image");
+        jButtonImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImageActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Sign Up");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Name:");
+
+        jLabel8.setText("Last Name:");
+
+        jLabel9.setText("Email:");
+
+        jLabel10.setText("Username:");
+
+        jLabel11.setText("Password:");
+
+        jLabel12.setText("Select an image:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(163, 163, 163)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel12)
+                    .addComponent(JTextFieldCorreo)
+                    .addComponent(JTextFieldNombre)
+                    .addComponent(jButtonImage, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(87, 87, 87)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton3)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(JTextFieldUser1)
+                    .addComponent(jPasswordField2)
+                    .addComponent(JTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(283, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JTextFieldUser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel11))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonImage))))
+        );
+
+        jLayeredPane1.add(jPanel3);
+        jPanel3.setBounds(0, 0, 810, 530);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -472,7 +472,7 @@ public class MiVentanta extends javax.swing.JFrame   {
             }    
             * */
             
-            
+            this.messageType = 1;
             
             //Change Layer
             jPanel1.setVisible(false);
@@ -619,9 +619,10 @@ public class MiVentanta extends javax.swing.JFrame   {
             
             //(CB cb, ProxyClient name, String message,ProxyConversation conv)
             String m = jTextPane1.getText();
-            mc.sendMessage((CB) mCB, me, m,  conversationsArray.get(actualconv ) );
+            mc.sendMessage((CB) mCB, me, this.messageType, m,  conversationsArray.get(actualconv ) );
             jTextPane1.setText("");
-
+            
+            this.messageType = 1;
 
         }
     }//GEN-LAST:event_buttonSendActionPerformed
@@ -779,31 +780,33 @@ public class MiVentanta extends javax.swing.JFrame   {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImageActionPerformed
-        	JFileChooser chooser = new JFileChooser();
-    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-        "JPG, PNG & GIF Images", "jpg", "png", "gif");
-    chooser.setFileFilter(filter);
-    int returnVal = chooser.showOpenDialog(this);
-    if(returnVal == JFileChooser.APPROVE_OPTION) {
-       System.out.println("You chose to open this file: " +
-            chooser.getSelectedFile().getAbsolutePath());
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "JPG, PNG & GIF Images", "jpg", "png", "gif");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            System.out.println("You chose to open this file: "
+                    + chooser.getSelectedFile().getAbsolutePath());
             URL url;
-                BufferedImage img;
-                //try {
-                    //url = new URL(chooser.getSelectedFile().getPath() );
+            BufferedImage img;
+            //try {
+            //url = new URL(chooser.getSelectedFile().getPath() );
 
-                    //img = ImageIO.read(url);
-                    //newuser = new ImageIcon(img);
-                    newuser = new ImageIcon(chooser.getSelectedFile().getPath());
-                /*
-                } catch (IOException ex) {
-                    Logger.getLogger(MainCliente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                */ 
-       
-    }
-    
-        
+            //img = ImageIO.read(url);
+            //newuser = new ImageIcon(img);
+            newuser = new ImageIcon(chooser.getSelectedFile().getPath());
+            /*
+             } catch (IOException ex) {
+             Logger.getLogger(MainCliente.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             */
+            this.messageType = 2;
+            System.out.println("Se cambio a 2");
+
+        }
+
+
     }//GEN-LAST:event_jButtonImageActionPerformed
 
     private void JButtonConversationsAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonConversationsAddActionPerformed
@@ -844,7 +847,22 @@ public class MiVentanta extends javax.swing.JFrame   {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         //TODO: make photo
-        
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "JPG, PNG & GIF Images", "jpg", "png", "gif");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            System.out.println("You chose to open this file: "
+                    + chooser.getSelectedFile().getAbsolutePath());
+            URL url;
+            BufferedImage img;
+            
+            newuser = new ImageIcon(chooser.getSelectedFile().getPath());
+           
+            this.messageType = 2;
+
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     
@@ -1103,5 +1121,6 @@ public class MiVentanta extends javax.swing.JFrame   {
     int actualconv = 0;
     
     ImageIcon newuser;
+    int messageType = 1;
     
 }
