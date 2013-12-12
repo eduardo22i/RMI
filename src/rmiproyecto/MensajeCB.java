@@ -22,6 +22,8 @@ public interface MensajeCB extends Remote {
     public ProxyClient getProxyClient()  throws RemoteException;
     public void setProxyClient(ProxyClient pc)  throws RemoteException;
     
+    public void makehimrefresh() throws RemoteException;
+    
     public void setFather(MainCliente mc) throws RemoteException;
 }
 

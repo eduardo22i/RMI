@@ -803,6 +803,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
          
          Collections.sort(proxMens, new CustomComparator());
          
+         
          for (int i = 0; i < proxMens.size(); i++) {
              System.out.println("enviado" + proxMens.get(i).date);
              ((MensajeCB) clienteLista.get(userinarray)).getMensaje(proxMens.get(i));
@@ -1054,6 +1055,34 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
         } finally {
             close();
         }
+        
+        int userinarray = 0;
+        for (int i = 0; i < clienteLista.size(); i++) {
+             try {
+                 if (( (ProxyClient)(this.getClient( ((MensajeCB) clienteLista.get(i)).getName() ))).id  == pc.id ) {
+                        System.out.println("user is = " + i);
+                        userinarray = i;
+                   }
+             } catch (RemoteException ex) {
+                 Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         }
+        try {
+            ((MensajeCB) clienteLista.get(userinarray)).makehimrefresh();
+        } catch (RemoteException ex) {
+            Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+         
+        
+        
+        try {
+            ((MensajeCB)this.clienteLista.get(0)).makehimrefresh();
+        } catch (RemoteException ex) {
+            Logger.getLogger(MensajeImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         return true;
      }
     

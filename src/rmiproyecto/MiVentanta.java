@@ -891,6 +891,12 @@ public class MiVentanta extends javax.swing.JFrame   {
     
     }//GEN-LAST:event_JButtonConversationsAddActionPerformed
 
+    
+    public void makeMeRefresh() {
+        this.refreshConvs();
+    }
+    
+    
     private void JButtonConversationsAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonConversationsAdd2ActionPerformed
         // TODO add your handling code here:
         String s = (String) JOptionPane.showInputDialog(null,

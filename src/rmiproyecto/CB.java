@@ -30,6 +30,11 @@ public class CB extends UnicastRemoteObject implements MensajeCB {
            System.out.println("ESTOY DENTRO");
         
     }
+    
+    public void makehimrefresh() {
+        cv.makeMeRefresh();
+    }
+    
     public String getMensaje(ProxyMessage pm)  {
         System.out.println(pm.from.user + " dice: " + pm.message); 
         pm.message = pm.message.replaceAll(":\\)", "☺");

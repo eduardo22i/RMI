@@ -41,7 +41,9 @@ public class MainCliente {
                 //ProxyClient pc2 = (ProxyClient) impl.getClient(conv.subscribers.get(i).user);
                 ProxyClient pc2 = conv.subscribers.get(i);
                 System.out.println("to " + pc2.user);
-
+                
+                pc.icon = null;
+                pc2.icon = null;
                 
                 //TODO Date is null
                 ProxyMessage pm = new ProxyMessage(pc , pc2, null, message);
