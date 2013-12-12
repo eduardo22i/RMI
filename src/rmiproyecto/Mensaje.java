@@ -14,7 +14,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
  
 public interface Mensaje extends Remote {
-    void enviarMensaje(int id, String name, String message, ProxyMessage pms, int idf) throws RemoteException;
+    void enviarMensaje(ProxyMessage pms, int idf) throws RemoteException;
     String getX(int id) throws RemoteException;   
     ProxyMessage getMessage(int id) throws RemoteException;
     

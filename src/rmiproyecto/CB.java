@@ -24,7 +24,13 @@ public class CB extends UnicastRemoteObject implements MensajeCB {
         cv.mCB = this;
         cv.setVisible(true);
     }
+    
+    public void getLastMensaje(ProxyMessage pm) throws RemoteException {
+           System.out.println("ESTOY DENTRO");
+        
+    }
     public String getMensaje(ProxyMessage pm)  {
+        System.out.println(pm.from.user + " dice: " + pm.message); 
         cv.getMensaje(pm);
         //System.out.println("\n"+ name + " dice: " + mensaje);
         //JOptionPane.showConfirmDialog(null, "\n"+ name + " dice: " + mensaje);

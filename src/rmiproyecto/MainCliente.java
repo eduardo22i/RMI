@@ -27,38 +27,39 @@ public class MainCliente {
     public Mensaje impl ;
     public MensajeCB mCB ;
     
-    public void sendMessage (CB cb, String name, String message,ProxyConversation conv) {
-        try {
-            System.out.println("Sender: "+cb.getID() + " - "+ name  + " - " + message);
-            ProxyClient pc = (ProxyClient) impl.getClient(name);
+    public void sendMessage (CB cb, ProxyClient name, String message,ProxyConversation conv) {
+            System.out.println("Sender: "+cb.getID() + " - "+ name.user  + " - " + message);
+            ProxyClient pc = name;
             
-            
+            //conv.subscribers.remove();
             for (int i = 0; i < conv.subscribers.size(); i++) {
+                System.out.println("USER: " + conv.subscribers.get(i).id +  conv.subscribers.get(i).user);
+            }
+            for (int i = 0; i < conv.subscribers.size(); i++) {
+                System.out.println("SUBS " + conv.subscribers.get(i).id );
                 
-                ProxyClient pc2 = (ProxyClient) impl.getClient(conv.subscribers.get(i).user);
+                //ProxyClient pc2 = (ProxyClient) impl.getClient(conv.subscribers.get(i).user);
+                ProxyClient pc2 = conv.subscribers.get(i);
                 System.out.println("to " + pc2.user);
 
+                
                 //TODO Date is null
                 ProxyMessage pm = new ProxyMessage(pc , pc2, null, message);
                 pm.conversation = conv;
+                try {                
                 
-                impl.enviarMensaje(mCB.getID(), name  , message, pm, i);
+                    //impl.enviarMensaje(mCB.getID(), name.name  , message, pm, i);
+                    impl.enviarMensaje(pm, i);
+                    
+                    //ProxyMessage pm2 = new ProxyMessage(pc2 , pc, null, message);
+                    //impl.enviarMensaje(cb.getID(), name  , message, pm2);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(MainCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
-                //ProxyMessage pm2 = new ProxyMessage(pc2 , pc, null, message);
-                //impl.enviarMensaje(cb.getID(), name  , message, pm2);
             }
                         
-            
-           
-            
-            
-            
-            
-
-            
-        } catch (RemoteException ex) {
-            Logger.getLogger(MainCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+   
     }
     
     private void doTest(){

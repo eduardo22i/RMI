@@ -513,7 +513,7 @@ public class MiVentanta extends javax.swing.JFrame   {
             
             
             try {
-                    conversationsArray.get(0).subscribers = impl.getClientsFromConversation( conversationsArray.get(this.actualconv).id); 
+                    conversationsArray.get(this.actualconv).subscribers = impl.getClientsFromConversation( conversationsArray.get(this.actualconv).id); 
                     
 
             } catch (RemoteException ex) {
@@ -523,7 +523,9 @@ public class MiVentanta extends javax.swing.JFrame   {
             //System.out.println("The user: " + ((ProxyClient) conversationsArray.get(this.actualconv).subscribers.get(0)).user );
             
             System.out.println(mCB.getID() + "_ id   --" + conversationsArray.get(this.actualconv).id);
+            
             impl.getMessages(pc.id, conversationsArray.get(this.actualconv).id );
+            
             jLabel7.setText( conversationsArray.get(0 ).name);
             //this.Id = pc.id;
             //this.mCB.setId(Id);
@@ -581,27 +583,48 @@ public class MiVentanta extends javax.swing.JFrame   {
             jList1.setAutoscrolls(true);
             jList1.setCellRenderer(new MyCellRenderer());
             */
-
-
-            System.out.print("Mensaje: ");
-            String m = jTextPane1.getText();
             /*
+            ProxyConversation conv;
+            conv = conversationsArray.get(actualconv );
+            
+  
+            ProxyClient pc = me;
+            
+            for (int i = 0; i < conv.subscribers.size(); i++) {
+                System.out.print("Mensaje: ");
+                String m = jTextPane1.getText();
+
+                ProxyClient pc2 = conv.subscribers.get(i);
+                System.out.println("to " + pc2.user);
+
+
+                //TODO Date is null
+                ProxyMessage pm = new ProxyMessage(pc, pc2, null, m);
+                pm.conversation = conv;
+
                 try {
-                    impl.enviarMensaje(((CB) mCB).getID(), mCB.getName(), m);
+                    /*
+                     try {
+                     impl.enviarMensaje(((CB) mCB).getID(), mCB.getName(), m);
+                     } catch (RemoteException ex) {
+                     Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
+                     }
+                     * * /
+                    impl.enviarMensaje(pm, i);
                 } catch (RemoteException ex) {
                     Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                * */
-            try {
-                
-                mc.sendMessage((CB) mCB, mCB.getName(), m,  conversationsArray.get(actualconv ) );
-            } catch (RemoteException ex) {
-                Logger.getLogger(MiVentanta.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                */
+
+                //
+            //}
             
+            //(CB cb, ProxyClient name, String message,ProxyConversation conv)
+            String m = jTextPane1.getText();
+            mc.sendMessage((CB) mCB, me, m,  conversationsArray.get(actualconv ) );
             jTextPane1.setText("");
-            
-            
+
+
         }
     }//GEN-LAST:event_buttonSendActionPerformed
 
