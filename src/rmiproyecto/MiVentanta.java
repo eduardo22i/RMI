@@ -893,6 +893,7 @@ public class MiVentanta extends javax.swing.JFrame   {
 
     
     public void makeMeRefresh() {
+        JOptionPane.showConfirmDialog(this, "Te agregaron a un conversación.");
         this.refreshConvs();
     }
     

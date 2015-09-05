@@ -52,7 +52,7 @@ public class MensajeImpl extends UnicastRemoteObject implements Mensaje {
     
   
     private String[][] servers = { {"js-alienware.local", "3306"},
-                                   {"macbook-air-de-eduardo.local", "8889"},
+                                   {"roblescoulter.local", "3306"},
                                    {"macbook-air-de-eduardo.local", "8889"}
                                  };
     private int servidorActual = 0;
